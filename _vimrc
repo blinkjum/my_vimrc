@@ -114,14 +114,6 @@ function! MyMarkWordCur()
 endfunction
 
 
-
-
-
-
-
-
-
-
 " --------------- <Leader> ------------------------------------------------
 nnoremap gh :call HeaderToggle()<CR>
 
@@ -130,14 +122,11 @@ Plug 'tomasr/molokai'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'abudden/taghighlight-automirror'
-"Plug 'ycm-core/YouCompleteMe'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
-" Plug 'mhinz/vim-signify'
-" Plug 'justinmk/vim-dirvish'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
@@ -146,16 +135,20 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'wakatime/vim-wakatime'
+Plug 'tpope/vim-surround'
 call plug#end()
 
-" ---------------- gitgutter -----------------------------------------
-" let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
+" ------------------------------------------------------------------ 
+" Desc: gitgutter 
+" ------------------------------------------------------------------ 
+
 set updatetime=100
 
 
+" ------------------------------------------------------------------ 
+" Desc: nerdcommenter 
+" ------------------------------------------------------------------ 
 
-" ---------------- nerdcommenter -----------------------------------------
-"
 "1、 \cc 注释当前行和选中行
 "2、 \cn 没有发现和\cc有区别
 "3、 \c<空格> 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作
@@ -213,36 +206,37 @@ let g:NERDToggleCheckAllLines = 1
 "             \'python' : 1,
 "             \'sh':1,
 "             \}
- 
-" ---------------- ctags -------------------------------------------------
-"let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
-"let g:gutentags_ctags_tagfile = '.tags'
-"let s:vim_tags = expand('~/.vim/cache/tags')
-"let g:gutentags_cache_dir = s:vim_tags
-"if !isdirectory(s:vim_tags)
-"   silent! call mkdir(s:vim_tags, 'p')
-"endif
-"let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-"let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-"let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-"let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 
-" ---------------- color scheme ------------------------------------------
+
+" ------------------------------------------------------------------ 
+" Desc: color scheme 
+" ------------------------------------------------------------------ 
+
 syntax enable
 colorscheme molokai
 set guifont=Ubuntu\ Mono:h14
 
 
-" ---------------- airline -----------------------------------------------
+" ------------------------------------------------------------------ 
+" Desc: airline 
+" ------------------------------------------------------------------ 
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 
-" ---------------- echodoc -----------------------------------------------
+" ------------------------------------------------------------------ 
+" Desc: echodoc 
+" ------------------------------------------------------------------ 
+
 set noshowmode
 "let g:echodoc_enable_at_startup = 1
 
-" ---------------- LeaderF -----------------------------------------------
+
+" ------------------------------------------------------------------ 
+" Desc: LeaderF 
+" ------------------------------------------------------------------ 
+
 let g:Lf_PreviewInPopup = 1
 "指定 popup window / floating window 的位置
 let g:Lf_PreviewHorizontalPosition = 'center'
@@ -261,33 +255,38 @@ noremap <c-n> :LeaderfFunction!<cr>
 noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
 
 
-" --------------- signify ------------------------------------------------
-" let g:signify_disable_by_default = 1
-" noremap <m-g> :SignifyToggle<cr>
-" noremap <m-d> :SignifyDiff<cr>
+" ------------------------------------------------------------------ 
+" Desc: easymotion 
+" ------------------------------------------------------------------ 
 
-
-" --------------- easymotion------------------------------------------------
 "easymotion 特殊映射，其他不变
 map E <Plug>(easymotion-e)
 map B <Plug>(easymotion-b)
 
-" --------------- nerdtree ------------------------------------------------
+" ------------------------------------------------------------------ 
+" Desc: nerdtree 
+" ------------------------------------------------------------------ 
 map <F3> :NERDTreeToggle<CR>
 
+" ------------------------------------------------------------------ 
+" Desc: ctags设置 
+" ------------------------------------------------------------------ 
 
-" ---------------------ctags设置----------------------------
 "更新tags
 map tt :!ctags -R *<cr><cr>
 "更新tag着色文件
 map tup :UpdateTypesFile<cr>
 
+" ------------------------------------------------------------------ 
+" Desc: tagbar设置 
+" ------------------------------------------------------------------ 
 
-" ---------------------tagbar设置----------------------------
 map tl :TagbarToggle<CR>
 
+" ------------------------------------------------------------------ 
+" Desc: neocomplcache设置 
+" ------------------------------------------------------------------ 
 
-" ---------------------neocomplcache设置----------------------------
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -378,11 +377,12 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
+" ------------------------------------------------------------------ 
+" Desc: vim-vim-which-key设置 
+" ------------------------------------------------------------------ 
 
-" ---------------- vim-vim-which-key --------------------------------------
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
-
 let g:which_key_map =  {}
 
 " `name` 是一个特殊字段，如果 dict 里面的元素也是一个 dict，那么表明一个 group，比如 `+file`, 就会高亮和显示 `+file` 。默认是 `+prefix`.
@@ -391,58 +391,36 @@ let g:which_key_map =  {}
 " 基于已经存在的快捷键映射，直接使用一个字符串说明介绍信息即可
 " =======================================================
 " You can pass a descriptive text to an existing mapping.
-
-" let g:which_key_map.c = { 'name' : '+commenter' }
-
-" nnoremap <silent> <Space>cc <Leader>cc
-" let g:which_key_map.c.c = '注释当前行和选中行'
-"
-" nnoremap <silent> <Space>ci <Leader>ci
-" let g:which_key_map.c.i = '反转注释'
-
-
 let g:which_key_map.c = {
-      \ 'name' : '+commenter',
-      \ 'c' : ['<plug>NERDCommenterComment', '注释当前行和选中行'],
-      \ 'i' : ['<plug>NERDCommenterInvert', '反转注释'],
-      \ 'n' : ['<plug>NERDCommenterToggle', '智能注释'],
-      \ 'A' : ['<plug>NERDCommenterAppend', '跳转到该行结尾添加注释，并进入编辑模式'],
-      \ }
+            \ 'name' : '+commenter',
+            \ 'c' : ['<plug>NERDCommenterComment', '注释当前行和选中行'],
+            \ 'i' : ['<plug>NERDCommenterInvert', '反转注释'],
+            \ 'n' : ['<plug>NERDCommenterToggle', '智能注释'],
+            \ 'A' : ['<plug>NERDCommenterAppend', '跳转到该行结尾添加注释，并进入编辑模式'],
+            \ }
 
 let g:which_key_map.w = {
-      \ 'name' : '+windows' ,
-      \ 'd' : ['<C-W>c'      , '删除窗口']              ,
-      \ 'h' : ['<C-W>30<'    , '窗口宽度微调']          ,
-      \ 'j' : [':resize +8'  , '窗口高度微调']          ,
-      \ 'k' : [':resize -8'  , '窗口高度微调']          ,
-      \ 'l' : ['<C-W>30>'    , '窗口宽度微调']          ,
-      \ 'H' : ['<C-W>H'      , '把当前窗口移动到最左']  ,
-      \ 'J' : ['<C-W>J'      , '把当前窗口移动到最下']  ,
-      \ 'L' : ['<C-W>L'      , '把当前窗口移动到最右']  ,
-      \ 'K' : ['<C-W>k'      , '把当前窗口移动到最上']  ,
-      \ '=' : ['<C-W>='      , '自动调整分屏']          ,
-      \ 's' : ['<C-W>s'      , '水平分屏']              ,
-      \ 'v' : ['<C-W>v'      , '竖直分屏']              ,
-      \ }
-
-
-
-
-
-
-
-
-
-
-
-
+            \ 'name' : '+windows' ,
+            \ 'd' : ['<C-W>c'      , '删除窗口']              ,
+            \ 'h' : ['<C-W>30<'    , '窗口宽度微调']          ,
+            \ 'j' : [':resize +8'  , '窗口高度微调']          ,
+            \ 'k' : [':resize -8'  , '窗口高度微调']          ,
+            \ 'l' : ['<C-W>30>'    , '窗口宽度微调']          ,
+            \ 'H' : ['<C-W>H'      , '把当前窗口移动到最左']  ,
+            \ 'J' : ['<C-W>J'      , '把当前窗口移动到最下']  ,
+            \ 'L' : ['<C-W>L'      , '把当前窗口移动到最右']  ,
+            \ 'K' : ['<C-W>k'      , '把当前窗口移动到最上']  ,
+            \ '=' : ['<C-W>='      , '自动调整分屏']          ,
+            \ 's' : ['<C-W>s'      , '水平分屏']              ,
+            \ 'v' : ['<C-W>v'      , '竖直分屏']              ,
+            \ }
 nnoremap <silent> <Space>oq  :copen<CR>
 nnoremap <silent> <Space>ol  :lopen<CR>
 let g:which_key_map.o = {
-      \ 'name' : '+open',
-      \ 'q' : 'open-quickfix'    ,
-      \ 'l' : 'open-locationlist',
-      \ }
+            \ 'name' : '+open',
+            \ 'q' : 'open-quickfix'    ,
+            \ 'l' : 'open-locationlist',
+            \ }
 
 " =======================================================
 " 不存在相关的快捷键映射，需要用一个 list：
@@ -450,47 +428,34 @@ let g:which_key_map.o = {
 " =======================================================
 " Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.) and descriptions for existing mappings
 let g:which_key_map.b = {
-      \ 'name' : '+buffer' ,
-      \ 'd' : ['bd'        , 'delete-buffer']   ,
-      \ 'f' : ['bfirst'    , 'first-buffer']    ,
-      \ 'l' : ['blast'     , 'last-buffer']     ,
-      \ 'n' : ['bnext'     , 'next-buffer']     ,
-      \ 'p' : ['bprevious' , 'previous-buffer'] ,
-      \ }
+            \ 'name' : '+buffer' ,
+            \ 'd' : ['bd'        , 'delete-buffer']   ,
+            \ 'f' : ['bfirst'    , 'first-buffer']    ,
+            \ 'l' : ['blast'     , 'last-buffer']     ,
+            \ 'n' : ['bnext'     , 'next-buffer']     ,
+            \ 'p' : ['bprevious' , 'previous-buffer'] ,
+            \ }
 
-let g:which_key_map.l = {
-      \ 'name' : '+lsp'                                            ,
-      \ 'f' : ['LanguageClient#textDocument_formatting()'     , 'formatting']       ,
-      \ 'h' : ['LanguageClient#textDocument_hover()'          , 'hover']            ,
-      \ 'r' : ['LanguageClient#textDocument_references()'     , 'references']       ,
-      \ 'R' : ['LanguageClient#textDocument_rename()'         , 'rename']           ,
-      \ 's' : ['LanguageClient#textDocument_documentSymbol()' , 'document-symbol']  ,
-      \ 'S' : ['LanguageClient#workspace_symbol()'            , 'workspace-symbol'] ,
-      \ 'g' : {
-        \ 'name': '+goto',
-        \ 'd' : ['LanguageClient#textDocument_definition()'     , 'definition']       ,
-        \ 't' : ['LanguageClient#textDocument_typeDefinition()' , 'type-definition']  ,
-        \ 'i' : ['LanguageClient#textDocument_implementation()'  , 'implementation']  ,
-        \ },
-      \ }
-
+nnoremap <silent> <Space>yy  "0p
+nnoremap <silent> <Space>y%  "%p
+nnoremap <silent> <Space>y/  "/p
+nnoremap <silent> <Space>ya  :reg<cr>
+let g:which_key_map.y = {
+            \ 'name' : '+reg',
+            \ 'y' : '复制专用寄存器',
+            \ '%' : '当前文件名',
+            \ '/' : '上次/查找的关键字',
+            \ 'a' : '查看所有寄存器',
+            \ }
 
 call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent> <Space> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 
-
-
-
-
-
-
-
-
-
-
-" --------------- <keymap> ------------------------------------------------
+" ------------------------------------------------------------------ 
+" Desc: <keymap> 
+" ------------------------------------------------------------------ 
 
  " 搜索模式里忽略大小写
  set ignorecase 
@@ -536,6 +501,10 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  map gl :call MyMarkWord()<cr>gd:call MySetPos()<cr> 
  "分割窗口并在当前窗口中传向定义
  map gk :call MyMarkWordCur()<cr>
+
+ "插入空行
+ map ]<space> o<esc>
+ map [<space> O<esc>
 
  "修改S为把当前词替换成之前复制的内容
  map S viw"0p
