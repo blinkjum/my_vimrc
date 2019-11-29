@@ -76,6 +76,8 @@ set guioptions-=L  "remove left-hand scroll bar
 syntax on
 set nobackup
 set noundofile
+set noswapfile
+set nowritebackup
 
 set encoding=utf-8
 set termencoding=utf-8  
@@ -114,8 +116,7 @@ function! MyMarkWordCur()
 endfunction
 
 
-" --------------- <Leader> ------------------------------------------------
-nnoremap gh :call HeaderToggle()<CR>
+" --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'
@@ -130,25 +131,34 @@ Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
-Plug 'Shougo/neocomplcache.vim'  
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
+Plug 'plasticboy/vim-markdown'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'iamcco/markdown-preview.nvim'
+Plug 'neoclide/coc.nvim'
 call plug#end()
+
 
 " ------------------------------------------------------------------ 
 " Desc: gitgutter 
 " ------------------------------------------------------------------ 
-
+let g:gitgutter_map_keys = 0
 set updatetime=100
+" let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
+let g:gitgutter_sign_added = '++'
+let g:gitgutter_sign_modified = '~~'
+let g:gitgutter_sign_removed = '--'
+let g:gitgutter_sign_removed_first_line = '^^'
+let g:gitgutter_sign_modified_removed = 'ww'
 
 
 " ------------------------------------------------------------------ 
 " Desc: nerdcommenter 
 " ------------------------------------------------------------------ 
-
 "1、 \cc 注释当前行和选中行
 "2、 \cn 没有发现和\cc有区别
 "3、 \c<空格> 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作
@@ -179,39 +189,9 @@ let g:NERDTrimTrailingWhitespace = 1
 let g:NERDToggleCheckAllLines = 1
 
 
-" ---------------- youcompleteme ------------------------------------------
-" set completeopt=menu,menuone
-" let g:ycm_add_preview_to_completeopt = 0
-" " 开启实时错误或者warning的检测
-" "let g:ycm_show_diagnostics_ui = 0
-" let g:ycm_server_log_level = 'info'
-"
-" let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" " 语法关键字补全
-" let g:ycm_seed_identifiers_with_syntax=1
-" " 补全功能在注释中同样有效
-" let g:ycm_complete_in_strings=1
-" " 从第二个键入字符就开始罗列匹配项
-" let g:ycm_min_num_identifier_candidate_chars = 2
-" let g:ycm_key_invoke_completion = '<c-z>'
-" noremap <c-z> <NOP>
-" let g:ycm_semantic_triggers =  {
-"             \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-"             \ 'cs,lua,javascript': ['re!\w{2}'],
-"             \ }
-" "ycm白名单
-" let g:ycm_filetype_whitelist = {
-"             \'c' : 1,
-"             \'cpp' : 1,
-"             \'python' : 1,
-"             \'sh':1,
-"             \}
-
-
 " ------------------------------------------------------------------ 
 " Desc: color scheme 
 " ------------------------------------------------------------------ 
-
 syntax enable
 colorscheme molokai
 set guifont=Ubuntu\ Mono:h14
@@ -220,7 +200,6 @@ set guifont=Ubuntu\ Mono:h14
 " ------------------------------------------------------------------ 
 " Desc: airline 
 " ------------------------------------------------------------------ 
-
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -228,7 +207,6 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 " ------------------------------------------------------------------ 
 " Desc: echodoc 
 " ------------------------------------------------------------------ 
-
 set noshowmode
 "let g:echodoc_enable_at_startup = 1
 
@@ -236,7 +214,6 @@ set noshowmode
 " ------------------------------------------------------------------ 
 " Desc: LeaderF 
 " ------------------------------------------------------------------ 
-
 let g:Lf_PreviewInPopup = 1
 "指定 popup window / floating window 的位置
 let g:Lf_PreviewHorizontalPosition = 'center'
@@ -258,129 +235,106 @@ noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword
 " ------------------------------------------------------------------ 
 " Desc: easymotion 
 " ------------------------------------------------------------------ 
-
 "easymotion 特殊映射，其他不变
 map E <Plug>(easymotion-e)
 map B <Plug>(easymotion-b)
+
 
 " ------------------------------------------------------------------ 
 " Desc: nerdtree 
 " ------------------------------------------------------------------ 
 map <F3> :NERDTreeToggle<CR>
 
+
 " ------------------------------------------------------------------ 
 " Desc: ctags设置 
 " ------------------------------------------------------------------ 
-
 "更新tags
 map tt :!ctags -R *<cr><cr>
 "更新tag着色文件
 map tup :UpdateTypesFile<cr>
 
+
 " ------------------------------------------------------------------ 
 " Desc: tagbar设置 
 " ------------------------------------------------------------------ 
-
 map tl :TagbarToggle<CR>
 
+
 " ------------------------------------------------------------------ 
-" Desc: neocomplcache设置 
+" Desc: vim-markdown设置 
+" ------------------------------------------------------------------ 
+let g:vim_markdown_math = 1
+
+
+" ------------------------------------------------------------------ 
+" Desc: vim-markdown-toc设置 
 " ------------------------------------------------------------------ 
 
-"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
-" Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
-" Enable heavy features.
-" Use camel case completion.
-"let g:neocomplcache_enable_camel_case_completion = 1
-" Use underbar completion.
-"let g:neocomplcache_enable_underbar_completion = 1
+" ------------------------------------------------------------------ 
+" Desc: markdown-preview.nvim设置 
+" ------------------------------------------------------------------ 
+ let g:mkdp_path_to_chrome = "chrome"
+"普通模式
+nmap <silent> <F8> <Plug>MarkdownPreview        
+" ------------------------------------------------------------------ 
+" Desc: coc.nvim设置 
+" ------------------------------------------------------------------ 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" Define dictionary.
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-" Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplcache#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplcache#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplcache#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplcache#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplcache_enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplcache_enable_insert_char_pre = 1
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" AutoComplPop like behavior.
-"let g:neocomplcache_enable_auto_select = 1
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+" Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
 
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_force_omni_patterns')
-  let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_force_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" " Highlight symbol under cursor on CursorHold
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" -----------------------snippet-----------------------------------------
+ " Use <C-l> for trigger snippet expand.
+ imap <C-l> <Plug>(coc-snippets-expand)
+ " Use <C-j> for select text for visual placeholder of snippet.
+ vmap <C-j> <Plug>(coc-snippets-select)
+ " Use <C-j> for jump to next placeholder, it's default of coc.nvim
+ let g:coc_snippet_next = '<c-j>'
+ " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+ let g:coc_snippet_prev = '<c-k>'
+ " Use <C-j> for both expand and jump (make expand higher priority.)
+ imap <C-j> <Plug>(coc-snippets-expand-jump)
+
 
 " ------------------------------------------------------------------ 
 " Desc: vim-vim-which-key设置 
 " ------------------------------------------------------------------ 
-
 " By default timeoutlen is 1000 ms
 set timeoutlen=500
 let g:which_key_map =  {}
@@ -436,6 +390,22 @@ let g:which_key_map.b = {
             \ 'p' : ['bprevious' , 'previous-buffer'] ,
             \ }
 
+let g:which_key_map.g = {
+            \ 'name' : '+git' ,
+            \ 'j' : ['<Plug>(GitGutterNextHunk)'       , 'NextHunk']  ,
+            \ 'k' : ['<Plug>(GitGutterPrevHunk)'       , 'PrevHunk']  ,
+            \ 'h' : [':GitGutterLineHighlightsToggle'  , 'ToggleHighlightHug']  ,
+            \ 'p' : ['<Plug>(GitGutterPreviewHunk)'    , 'PreviewHunk']         ,
+            \ 's' : ['<Plug>(GitGutterStageHunk)'      , 'StageHunk']           ,
+            \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']            ,
+            \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
+            \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
+            \ }
+let g:which_key_map.f = {
+            \ 'name' : '+file' ,
+            \ 'o' : ['NERDTreeFind'  , 'open-file-tree']   ,
+            \ }
+
 nnoremap <silent> <Space>yy  "0p
 nnoremap <silent> <Space>y%  "%p
 nnoremap <silent> <Space>y/  "/p
@@ -466,13 +436,13 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  "设置行号颜色
  highlight LineNr guifg=#A4D3EE
  "设置行号背景色
- highlight LineNr guibg=black
+ highlight LineNr guibg=#1f1f1f
  "突出显示当前行
  set cursorline 
 
  "用tab和shift+tab来切换标签页
- nmap <tab>   :bn<cr>
- nmap <s-tab> :bp<cr>
+  nmap <tab>   :bn<cr>
+  nmap <s-tab> :bp<cr>
 
  " my widnows
  nmap wj <C-W>j
@@ -498,13 +468,16 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  map gd *
 
  "分割窗口并在新窗口中传向定义
- map gl :call MyMarkWord()<cr>gd:call MySetPos()<cr> 
+ nnoremap gl :call MyMarkWord()<cr>gd:call MySetPos()<cr> 
  "分割窗口并在当前窗口中传向定义
- map gk :call MyMarkWordCur()<cr>
+ nnoremap gk :call MyMarkWordCur()<cr>
 
  "插入空行
- map ]<space> o<esc>
- map [<space> O<esc>
+ nnoremap <silent> [<Space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>
+ nnoremap <silent> ]<Space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
+
+ "选中最后复制的内容
+ nnoremap <silent><expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
 
  "修改S为把当前词替换成之前复制的内容
  map S viw"0p
@@ -512,3 +485,10 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  map <unique> <leader>y "*y
  map <unique> <leader>p "*p
  map <unique> <leader>P "*P
+
+nnoremap gh :call HeaderToggle()<CR>
+
+"gitgutter signcolumn color 
+highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
+highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
+highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
