@@ -129,11 +129,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 'plasticboy/vim-markdown'
@@ -392,6 +393,9 @@ let g:which_key_map.b = {
 
 let g:which_key_map.g = {
             \ 'name' : '+git' ,
+            \ 'g' : [':G'                              , 'GitStatus']  ,
+            \ 'd' : [':Gdiffsplit'                     , 'Diffsplit']  ,
+            \ 'b' : [':Gblame'                         , 'GitBlame']  ,
             \ 'j' : ['<Plug>(GitGutterNextHunk)'       , 'NextHunk']  ,
             \ 'k' : ['<Plug>(GitGutterPrevHunk)'       , 'PrevHunk']  ,
             \ 'h' : [':GitGutterLineHighlightsToggle'  , 'ToggleHighlightHug']  ,
