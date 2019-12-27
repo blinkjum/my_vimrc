@@ -28,7 +28,6 @@
 [coc.nvim](https://github.com/neoclide/coc.nvim)
 ##### 代码片段（snippets）
 [coc-snippets](https://github.com/neoclide/coc-snippets)
-
 ##### git
 [vim-fugitive](https://github.com/tpope/vim-fugitive)
 
@@ -39,6 +38,8 @@
  [molokai](https://github.com/tomasr/molokai)
 ##### 移动和跳转
 [vim-easymotion](https://github.com/easymotion/vim-easymotion)
+##### 多光标编辑
+[vim-visual-multi](https://github.com/mg979/vim-visual-multi)
 ##### 注释
 [nerdcommenter](https://github.com/scrooloose/nerdcommenter)
 
