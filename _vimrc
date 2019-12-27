@@ -1,6 +1,11 @@
 " Vim with all enhancements
 source $VIMRUNTIME/vimrc_example.vim
 
+set nocompatible " Use Vim settings, rather then Vi settings (much better!). This must be first, because it changes other options as a side effect.
+set tags+=./tags,./../tags,./**/tags,tags " which tags files CTRL-] will find 
+set hid " allow to change buffer without saving 
+set showfulltag " show tag with function protype.
+
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
 if &diffopt !~# 'internal'
@@ -91,6 +96,11 @@ set expandtab
 
 set nu
 
+" In Visual Block Mode, cursor can be positioned where there is no actual character
+set ve=block
+
+" For all text files set 'textwidth' to 78 characters.
+autocmd FileType text setlocal textwidth=78
 
 function! MySavePos()
   let g:g_save_cursor = getpos(".")
@@ -119,10 +129,16 @@ endfunction
 " --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'tomasr/molokai'
+Plug 'blinkjum/MyMolokai'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
-Plug 'abudden/taghighlight-automirror'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-easytags'
+" Plug 'abudden/taghighlight-automirror'
+Plug 'octol/vim-cpp-enhanced-highlight'
+" Plug 'justinmk/vim-syntax-extra'
+" Plug 'vim-scripts/taghighlight'
+Plug 'vim-scripts/a.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -137,18 +153,18 @@ Plug 'vim-airline/vim-airline'
 Plug 'mg979/vim-visual-multi'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
-Plug 'plasticboy/vim-markdown'
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'iamcco/markdown-preview.nvim'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'mzlogin/vim-markdown-toc'
+" Plug 'iamcco/markdown-preview.nvim'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'neoclide/coc.nvim'
+Plug 'jceb/vim-orgmode'
 call plug#end()
-
-
 " ------------------------------------------------------------------ 
 " Desc: gitgutter 
 " ------------------------------------------------------------------ 
 let g:gitgutter_map_keys = 0
-set updatetime=100
+set updatetime=800
 " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
 let g:gitgutter_sign_added = '++'
 let g:gitgutter_sign_modified = '~~'
@@ -157,6 +173,15 @@ let g:gitgutter_sign_removed_first_line = '^^'
 let g:gitgutter_sign_modified_removed = 'ww'
 
 
+" ------------------------------------------------------------------ 
+" Desc: vim-cpp-enhanced-highlight
+" ------------------------------------------------------------------ 
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_posix_standard = 1
+let g:cpp_experimental_simple_template_highlight = 1
+let g:cpp_concepts_highlight = 1
 " ------------------------------------------------------------------ 
 " Desc: nerdcommenter 
 " ------------------------------------------------------------------ 
@@ -189,7 +214,11 @@ let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
 
-
+" ------------------------------------------------------------------
+" Desc: bookmark
+" ------------------------------------------------------------------
+let g:bookmark_sign = '🐎'
+" let g:bookmark_no_default_key_mappings = 1
 " ------------------------------------------------------------------ 
 " Desc: color scheme 
 " ------------------------------------------------------------------ 
@@ -202,7 +231,20 @@ set guifont=Ubuntu\ Mono:h14
 " Desc: airline 
 " ------------------------------------------------------------------ 
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+"显示tabline序号
+" let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#bookmark#enabled = 1
+" 关闭空白符检测
+let g:airline#extensions#whitespace#enabled=0
+  function! AirlineInit()
+    " let g:airline_section_a = airline#section#create(['mode'])
+    let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[ASCII=\%02.4B]'])
+    " let g:airline_section_c = airline#section#create(['%{getcwd()}'])
+  endfunction
+  autocmd User AirlineAfterInit call AirlineInit()
+
 
 
 " ------------------------------------------------------------------ 
@@ -279,9 +321,15 @@ let g:vim_markdown_math = 1
  let g:mkdp_path_to_chrome = "chrome"
 "普通模式
 nmap <silent> <F8> <Plug>MarkdownPreview        
+
+
 " ------------------------------------------------------------------ 
 " Desc: coc.nvim设置 
 " ------------------------------------------------------------------ 
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -405,9 +453,23 @@ let g:which_key_map.g = {
             \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
             \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
             \ }
+let g:which_key_map.m = {
+            \ 'name' : '+mark',
+            \ 'm' : ['<Plug>BookmarkToggle', 'BookmarkToggle'],
+            \ 'i' : ['<plug>BookmarkAnnotate', 'NERDCommenterInvert'],
+            \ 'a' : ['<plug>BookmarkShowAll', 'BookmarkShowAll'],
+            \ 'j' : ['<plug>BookmarkNext', 'BookmarkNext'],
+            \ 'k' : ['<plug>BookmarkPrev', 'BookmarkPrev'],
+            \ 'c' : ['<plug>BookmarkClear', 'BookmarkClear'],
+            \ 'x' : ['<plug>BookmarkClearAll', 'BookmarkClearAll'],
+            \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine'],
+            \ }
 let g:which_key_map.f = {
             \ 'name' : '+file' ,
             \ 'o' : ['NERDTreeFind'  , 'open-file-tree']   ,
+            \ 'a' : [':A'            , 'switch to .H']   ,
+            \ 's' : [':AS'           , 'splits and switch']   ,
+            \ 'v' : [':AV'           , 'vertiacl splits and switch']   ,
             \ }
 
 nnoremap <silent> <Space>yy  "0p
@@ -448,6 +510,29 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
   nmap <tab>   :bn<cr>
   nmap <s-tab> :bp<cr>
 
+ "插入模式下快捷移动 emacs映射
+ inoremap <C-b> <Left>
+ inoremap <C-f> <Right>
+ inoremap <C-n> <Down>
+ inoremap <C-p> <Up>
+ inoremap <A-b> <S-Left>
+ inoremap <A-f> <S-Right>
+ inoremap <C-a> <Home>
+ inoremap <C-e> <End>
+
+ "<C-d>向后删除一个字符
+ inoremap <C-d> <c-o>s 
+ "<C-h>向前删除一个字符
+ inoremap <C-h> <BS>
+ "<A-d>向后删除一个单词
+ inoremap <A-d> <c-o>de
+ "<C-w>向前删除一个单词
+ inoremap <C-w> <c-o>db
+ "<C-u>向前删除到句首
+ inoremap <C-u> <c-o>d^
+ "<C-k>向后删除到句尾
+ inoremap <C-k> <c-o>d$
+
  " my widnows
  nmap wj <C-W>j
  nmap wl <C-W>l
@@ -470,6 +555,8 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
 
  "映射*到gd
  map gd *
+"在foo.c 和foo.h之间切换
+ nnoremap gh :A<cr>
 
  "分割窗口并在新窗口中传向定义
  nnoremap gl :call MyMarkWord()<cr>gd:call MySetPos()<cr> 
