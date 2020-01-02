@@ -134,8 +134,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
-" Plug 'abudden/taghighlight-automirror'
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'abudden/taghighlight-automirror'
+" Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'justinmk/vim-syntax-extra'
 " Plug 'vim-scripts/taghighlight'
 Plug 'vim-scripts/a.vim'
@@ -240,7 +240,7 @@ let g:airline#extensions#bookmark#enabled = 1
 let g:airline#extensions#whitespace#enabled=0
   function! AirlineInit()
     " let g:airline_section_a = airline#section#create(['mode'])
-    let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[ASCII=\%02.4B]'])
+    let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[ASCII=%02.4B]'])
     " let g:airline_section_c = airline#section#create(['%{getcwd()}'])
   endfunction
   autocmd User AirlineAfterInit call AirlineInit()
@@ -269,7 +269,7 @@ let g:Lf_WindowHeight = 0.30
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
 let g:Lf_ShortcutF = '<leader>f'
-noremap <c-n> :LeaderfFunction!<cr>
+" noremap <c-n> :LeaderfFunction!<cr>
 " noremap <c-m> :LeaderfRgRecall<cr>
 "全局搜索
 noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
@@ -471,6 +471,12 @@ let g:which_key_map.f = {
             \ 's' : [':AS'           , 'splits and switch']   ,
             \ 'v' : [':AV'           , 'vertiacl splits and switch']   ,
             \ }
+let g:which_key_map.l = {
+            \ 'name' : '+LeaderF' ,
+            \ 'f' : ['LeaderfFunction'  , 'search functions in current buffer']   ,
+            \ 'b' : ['LeaderfBuffer'  , 'search buffers']   ,
+            \ 't' : ['LeaderfTag'  , 'navigate tags']   ,
+            \ }
 
 nnoremap <silent> <Space>yy  "0p
 nnoremap <silent> <Space>y%  "%p
@@ -505,6 +511,8 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  highlight LineNr guibg=#1f1f1f
  "突出显示当前行
  set cursorline 
+ "禁用自动调整窗口
+ set noequalalways
 
  "用tab和shift+tab来切换标签页
   nmap <tab>   :bn<cr>
