@@ -385,7 +385,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Desc: vim-vim-which-key设置 
 " ------------------------------------------------------------------ 
 " By default timeoutlen is 1000 ms
-set timeoutlen=500
+set timeoutlen=400
 let g:which_key_map =  {}
 
 " `name` 是一个特殊字段，如果 dict 里面的元素也是一个 dict，那么表明一个 group，比如 `+file`, 就会高亮和显示 `+file` 。默认是 `+prefix`.
@@ -482,6 +482,15 @@ nnoremap <silent> <Space>yy  "0p
 nnoremap <silent> <Space>y%  "%p
 nnoremap <silent> <Space>y/  "/p
 nnoremap <silent> <Space>ya  :reg<cr>
+
+noremap <silent> <Space>1  "1
+noremap <silent> <Space>2  "2
+noremap <silent> <Space>3  "3
+noremap <silent> <Space>4  "4
+noremap <silent> <Space>5  "5
+noremap <silent> <Space>6  "6
+noremap <silent> <Space>7  "7
+noremap <silent> <Space>8  "8
 let g:which_key_map.y = {
             \ 'name' : '+reg',
             \ 'y' : '复制专用寄存器',
@@ -552,7 +561,8 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  nmap ws :vertical res 50<cr>
  nmap w2 :vertical res 20<cr>
  nmap w3 :vertical res 30<cr>
- nmap wm :vertical res 100<cr>
+ nmap wn :vertical res 100<cr>
+ nmap wm :vertical res 150<cr>
 
  "快速翻页
  nnoremap J <C-F>
