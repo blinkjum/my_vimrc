@@ -153,6 +153,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'mg979/vim-visual-multi'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
+Plug 't9md/vim-choosewin'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'mzlogin/vim-markdown-toc'
 " Plug 'iamcco/markdown-preview.nvim'
@@ -281,7 +282,10 @@ noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword
 "easymotion 特殊映射，其他不变
 map E <Plug>(easymotion-e)
 map B <Plug>(easymotion-b)
-
+map <silent> <Space>j  <Plug>(easymotion-j)
+map <silent> <Space>k  <Plug>(easymotion-k)
+" keep cursor column when JK motion
+let g:EasyMotion_startofline = 0 
 
 " ------------------------------------------------------------------ 
 " Desc: nerdtree 
@@ -293,7 +297,7 @@ map <F3> :NERDTreeToggle<CR>
 " Desc: ctags设置 
 " ------------------------------------------------------------------ 
 "更新tags
-map tt :!ctags -R *<cr><cr>
+map tt :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr><cr>
 "更新tag着色文件
 map tup :UpdateTypesFile<cr>
 
@@ -302,7 +306,33 @@ map tup :UpdateTypesFile<cr>
 " Desc: tagbar设置 
 " ------------------------------------------------------------------ 
 map tl :TagbarToggle<CR>
+map tk :TagbarOpenAutoClose<CR>
+" let g:tagbar_autofocus = 1
+let g:tagbar_sort = 0
 
+" ------------------------------------------------------------------ 
+" Desc: choosewin设置 
+" ------------------------------------------------------------------ 
+" nmap wi <Plug>(choosewin)
+" use overlay feature
+let g:choosewin_overlay_enable = 1
+
+" workaround for the overlay font being broken on mutibyte buffer.
+let g:choosewin_overlay_clear_multibyte = 1
+
+" tmux-like overlay color
+let g:choosewin_color_overlay = {
+            \ 'gui': ['DodgerBlue3', 'DodgerBlue3'],
+            \ 'cterm': [25, 25]
+            \ }
+let g:choosewin_color_overlay_current = {
+            \ 'gui': ['firebrick1', 'firebrick1'],
+            \ 'cterm': [124, 124]
+            \ }
+
+let g:choosewin_blink_on_land      = 0 " don't blink at land
+let g:choosewin_statusline_replace = 0 " don't replace statusline
+let g:choosewin_tabline_replace    = 0 " don't replace tabline
 
 " ------------------------------------------------------------------ 
 " Desc: vim-markdown设置 
@@ -416,13 +446,7 @@ let g:which_key_map.w = {
             \ '=' : ['<C-W>='      , '自动调整分屏']          ,
             \ 's' : ['<C-W>s'      , '水平分屏']              ,
             \ 'v' : ['<C-W>v'      , '竖直分屏']              ,
-            \ }
-nnoremap <silent> <Space>oq  :copen<CR>
-nnoremap <silent> <Space>ol  :lopen<CR>
-let g:which_key_map.o = {
-            \ 'name' : '+open',
-            \ 'q' : 'open-quickfix'    ,
-            \ 'l' : 'open-locationlist',
+            \ 'c' : ['<Plug>(choosewin)', '选择窗口']         ,
             \ }
 
 " =======================================================
@@ -470,6 +494,7 @@ let g:which_key_map.f = {
             \ 'a' : [':A'            , 'switch to .H']   ,
             \ 's' : [':AS'           , 'splits and switch']   ,
             \ 'v' : [':AV'           , 'vertiacl splits and switch']   ,
+            \ 'w' : [':set wrap'     , 'auto wrap']   ,
             \ }
 let g:which_key_map.l = {
             \ 'name' : '+LeaderF' ,
@@ -483,6 +508,7 @@ nnoremap <silent> <Space>y%  "%p
 nnoremap <silent> <Space>y/  "/p
 nnoremap <silent> <Space>ya  :reg<cr>
 
+"映射1-9复制寄存器
 noremap <silent> <Space>1  "1
 noremap <silent> <Space>2  "2
 noremap <silent> <Space>3  "3
@@ -491,6 +517,8 @@ noremap <silent> <Space>5  "5
 noremap <silent> <Space>6  "6
 noremap <silent> <Space>7  "7
 noremap <silent> <Space>8  "8
+noremap <silent> <Space>9  "9
+
 let g:which_key_map.y = {
             \ 'name' : '+reg',
             \ 'y' : '复制专用寄存器',
@@ -507,9 +535,9 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
 " ------------------------------------------------------------------ 
 " Desc: <keymap> 
 " ------------------------------------------------------------------ 
-
- " 搜索模式里忽略大小写
+ " smartcase模式进行搜索,如果输入中有大写则区分大小写,忽略ignorecase设置
  set ignorecase 
+ set smartcase 
  " 禁止自动换行
  set nowrap
  "设置相对行号
@@ -551,6 +579,7 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  inoremap <C-k> <c-o>d$
 
  " my widnows
+ nmap wi <Plug>(choosewin)
  nmap wj <C-W>j
  nmap wl <C-W>l
  nmap wk <C-W>k
@@ -596,6 +625,8 @@ vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
  map <unique> <leader>P "*P
 
 nnoremap gh :call HeaderToggle()<CR>
+
+nnoremap <C-]> g<C-]>
 
 "gitgutter signcolumn color 
 highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
