@@ -38,6 +38,8 @@
  [molokai](https://github.com/tomasr/molokai)
 ##### 移动和跳转
 [vim-easymotion](https://github.com/easymotion/vim-easymotion)
+
+[vim-choosewin](https://github.com/t9md/vim-choosewin)
 ##### 多光标编辑
 [vim-visual-multi](https://github.com/mg979/vim-visual-multi)
 ##### 注释
@@ -58,7 +60,12 @@
 
 ##### status line
 [vim-airline](https://github.com/vim-airline/vim-airline)
+##### 书签
+[vim-boomarks](https://github.com/MattesGroeger/vim-bookmarks)
 
+[vim-signature](https://github.com/kshenoy/vim-signature)
+##### orgmode
+[vim-orgmode](https://github.com/jceb/vim-orgmode)
 ##### markdown支持
 [vim-markdown](https://github.com/plasticboy/vim-markdown)
 

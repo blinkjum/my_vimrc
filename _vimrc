@@ -158,6 +158,7 @@ Plug 'Shougo/echodoc.vim'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'mzlogin/vim-markdown-toc'
 " Plug 'iamcco/markdown-preview.nvim'
+Plug 'kshenoy/vim-signature'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'neoclide/coc.nvim'
 Plug 'jceb/vim-orgmode'
@@ -223,7 +224,7 @@ call plug#end()
 " Desc: bookmark
 " ------------------------------------------------------------------
     let g:bookmark_sign = '🐎'
-    " let g:bookmark_no_default_key_mappings = 1
+    let g:bookmark_no_default_key_mappings = 1
 
 
 " ------------------------------------------------------------------ 
@@ -284,8 +285,8 @@ call plug#end()
     let g:Lf_ShortcutF = '<leader>f'
     " noremap <c-n> :LeaderfFunction!<cr>
     " noremap <c-m> :LeaderfRgRecall<cr>
-    "全局搜索
-    noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -e %s ", expand("<cword>"))<CR>
+    "全局搜索 -E GBK 指定编码保证汉字搜索
+    noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -E GBK -e %s ", expand("<cword>"))<CR>
 
 
 " ------------------------------------------------------------------ 
@@ -501,6 +502,7 @@ call plug#end()
                 \ 'c' : ['<plug>BookmarkClear', 'BookmarkClear'],
                 \ 'x' : ['<plug>BookmarkClearAll', 'BookmarkClearAll'],
                 \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine'],
+                \ 's' : [':marks', 'show all marks'],
                 \ }
     let g:which_key_map.f = {
                 \ 'name' : '+file' ,
@@ -515,12 +517,13 @@ call plug#end()
                 \ 'f' : ['LeaderfFunction'  , 'search functions in current buffer']   ,
                 \ 'b' : ['LeaderfBuffer'  , 'search buffers']   ,
                 \ 't' : ['LeaderfTag'  , 'navigate tags']   ,
+                \ 'l' : ['LeaderfLineAll'  , 'search a line in all listed buffers']   ,
                 \ }
 
-    nnoremap <silent> <Space>yy  "0p
-    nnoremap <silent> <Space>y%  "%p
-    nnoremap <silent> <Space>y/  "/p
-    nnoremap <silent> <Space>ya  :reg<cr>
+    nnoremap <silent> <Space>ry  "0p
+    nnoremap <silent> <Space>r%  "%p
+    nnoremap <silent> <Space>r/  "/p
+    nnoremap <silent> <Space>ra  :reg<cr>
 
     "映射1-9复制寄存器
     noremap <silent> <Space>1  "1
@@ -533,7 +536,7 @@ call plug#end()
     noremap <silent> <Space>8  "8
     noremap <silent> <Space>9  "9
 
-    let g:which_key_map.y = {
+    let g:which_key_map.r = {
                 \ 'name' : '+reg',
                 \ 'y' : '复制专用寄存器',
                 \ '%' : '当前文件名',
@@ -634,12 +637,12 @@ call plug#end()
  "修改S为把当前词替换成之前复制的内容
  map S viw"0p
  "使用黑洞寄存器处理可视模式下的复制问题
- vnoremap p "_dp
+ vnoremap p "_dP
 
  "系统复制粘贴
- map <unique> <leader>y "*y
- map <unique> <leader>p "*p
- map <unique> <leader>P "*P
+ map <unique> <Space>y "*y
+ map <unique> <Space>p "*p
+ map <unique> <Space>P "*P
 
 nnoremap gh :call HeaderToggle()<CR>
 
