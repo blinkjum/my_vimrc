@@ -44,33 +44,6 @@ function MyDiff()
   endif
 endfunction
 
-function! HeaderToggle()
-let file_path = expand("%")
-let file_name = expand("%<")
-let extension = split(file_path, '\.')[-1]
-let err_msg = "Can't find file: "
-
-if (extension == "c") || (extension == "cpp")
-    let header_file = join([file_name, ".h"], "")
-    if filereadable(header_file)
-    :vs %<.h
-    else
-        echo join([err_msg, header_file], "")
-    endif
-elseif extension == "h"
-    let c_file = join([file_name, ".c"], "")
-    let cpp_file = join([file_name, ".cpp"], "")
-    let next_file = join([file_name, ".c/.cpp"], "")
-    if filereadable(c_file)
-        :vs %<.c
-    elseif filereadable(cpp_file)
-		:vs %<.cpp
-	else
-        echo join([err_msg, next_file], "")
-    endif
-endif
-endfunction
-
 set signcolumn=yes
 
 set guioptions-=m  "remove menu bar
@@ -154,7 +127,8 @@ Plug 'mg979/vim-visual-multi'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
-Plug 'Shougo/echodoc.vim'
+" Plug 'Shougo/echodoc.vim'
+Plug 'skywind3000/vim-preview'
 " Plug 'plasticboy/vim-markdown'
 " Plug 'mzlogin/vim-markdown-toc'
 " Plug 'iamcco/markdown-preview.nvim'
@@ -162,6 +136,8 @@ Plug 'kshenoy/vim-signature'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'neoclide/coc.nvim'
 Plug 'jceb/vim-orgmode'
+Plug 'gaving/vim-textobj-argument'
+Plug 'yianwillis/vimcdoc'
 call plug#end()
 " ------------------------------------------------------------------ 
 " Desc: gitgutter 
@@ -302,6 +278,20 @@ call plug#end()
 
 
 " ------------------------------------------------------------------ 
+" Desc: vim-textobj-argument 
+" ------------------------------------------------------------------ 
+"基本操作
+" c/d/v/y + ia                 改写/删除/选取/复制 函数参数
+" c/d/v/y + aa                 改写/删除/选取/复制 函数参数（包括逗号分隔）
+
+
+" ------------------------------------------------------------------ 
+" Desc: vim-preview 
+" ------------------------------------------------------------------ 
+    noremap gs :PreviewSignature!<cr>
+
+
+" ------------------------------------------------------------------ 
 " Desc: nerdtree 
 " ------------------------------------------------------------------ 
     map <F3> :NERDTreeToggle<CR>
@@ -311,7 +301,7 @@ call plug#end()
 " Desc: ctags设置 
 " ------------------------------------------------------------------ 
     "更新tags
-    map tt :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr><cr>
+    map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extra=+q .<cr><cr>
     "更新tag着色文件
     map tup :UpdateTypesFile<cr>
 
@@ -445,6 +435,7 @@ call plug#end()
                 \ 'i' : ['<plug>NERDCommenterInvert', '反转注释'],
                 \ 'n' : ['<plug>NERDCommenterToggle', '智能注释'],
                 \ 'A' : ['<plug>NERDCommenterAppend', '跳转到该行结尾添加注释，并进入编辑模式'],
+                \ 'd' : [':Dox', 'Doxygen注释'],
                 \ }
 
     let g:which_key_map.w = {
@@ -518,6 +509,13 @@ call plug#end()
                 \ 'b' : ['LeaderfBuffer'  , 'search buffers']   ,
                 \ 't' : ['LeaderfTag'  , 'navigate tags']   ,
                 \ 'l' : ['LeaderfLineAll'  , 'search a line in all listed buffers']   ,
+                \ 'm' : ['LeaderfMruCwd'  , 'search Mru in current working directory']   ,
+                \ }
+    let g:which_key_map.h = {
+                \ 'name' : '+help' ,
+                \ 'l' : [':h local-additions'  , 'local plugin doc']   ,
+                \ 'h' : [':h'  , 'vim help indix']   ,
+                \ 'o' : [':h options'  , 'vim options ']   ,
                 \ }
 
     nnoremap <silent> <Space>ry  "0p
@@ -623,7 +621,8 @@ call plug#end()
  nnoremap gh :A<cr>
 
  "分割窗口并在新窗口中传向定义
- nnoremap gl :call MyMarkWord()<cr>gd:call MySetPos()<cr> 
+ " nnoremap gl :call MyMarkWord()<cr>gd:call MySetPos()<cr>
+ nnoremap gl :PreviewTag <cr> gd:call MySetPos()<cr>
  "分割窗口并在当前窗口中传向定义
  nnoremap gk :call MyMarkWordCur()<cr>
 
@@ -644,11 +643,12 @@ call plug#end()
  map <unique> <Space>p "*p
  map <unique> <Space>P "*P
 
-nnoremap gh :call HeaderToggle()<CR>
-
 nnoremap <C-]> g<C-]>
 
 "gitgutter signcolumn color 
 highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
 highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
 highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
+
+"windows下显示增强
+set rop=type:directx,renmode:5
