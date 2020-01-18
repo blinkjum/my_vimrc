@@ -86,9 +86,6 @@ endfunction
 function! MyMarkWord()
   let cword=expand('<cword>')
   call MySavePos()
-  let cmd='vertical botright ptag! '.cword.'| vertical res 80|let g:g_gonext_flag="ptn"'
-  "echo cmd
-  silent exe cmd
 endfunction
 
 function! MyMarkWordCur()
@@ -127,6 +124,7 @@ Plug 'mg979/vim-visual-multi'
 Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
+Plug 't9md/vim-quickhl'
 " Plug 'Shougo/echodoc.vim'
 Plug 'skywind3000/vim-preview'
 " Plug 'plasticboy/vim-markdown'
@@ -143,7 +141,7 @@ call plug#end()
 " Desc: gitgutter 
 " ------------------------------------------------------------------ 
     let g:gitgutter_map_keys = 0
-    set updatetime=800
+    set updatetime=300
     " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
     let g:gitgutter_sign_added = '++'
     let g:gitgutter_sign_modified = '~~'
@@ -271,6 +269,7 @@ call plug#end()
     "easymotion 特殊映射，其他不变
     map E <Plug>(easymotion-e)
     map B <Plug>(easymotion-b)
+    map F <Plug>(easymotion-s)
     map <silent> <Space>j  <Plug>(easymotion-j)
     map <silent> <Space>k  <Plug>(easymotion-k)
     " keep cursor column when JK motion
@@ -338,6 +337,15 @@ call plug#end()
     let g:choosewin_blink_on_land      = 0 " don't blink at land
     let g:choosewin_statusline_replace = 0 " don't replace statusline
     let g:choosewin_tabline_replace    = 0 " don't replace tabline
+
+
+" ------------------------------------------------------------------ 
+" Desc: choosewin设置 
+" ------------------------------------------------------------------ 
+    nmap <Space>n <Plug>(quickhl-manual-this)
+    xmap <Space>n <Plug>(quickhl-manual-this)
+    nmap <Space>N <Plug>(quickhl-manual-reset)
+    xmap <Space>N <Plug>(quickhl-manual-reset)
 
 
 " ------------------------------------------------------------------ 
@@ -417,7 +425,7 @@ call plug#end()
 
 
 " ------------------------------------------------------------------ 
-" Desc: vim-vim-which-key设置 
+" Desc: vim-which-key设置 
 " ------------------------------------------------------------------ 
     " By default timeoutlen is 1000 ms
     set timeoutlen=400
@@ -494,6 +502,7 @@ call plug#end()
                 \ 'x' : ['<plug>BookmarkClearAll', 'BookmarkClearAll'],
                 \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine'],
                 \ 's' : [':marks', 'show all marks'],
+                \ 'r' : [':QuickhlManualReset', 'Reset highlight'],
                 \ }
     let g:which_key_map.f = {
                 \ 'name' : '+file' ,
@@ -502,6 +511,7 @@ call plug#end()
                 \ 's' : [':AS'           , 'splits and switch']   ,
                 \ 'v' : [':AV'           , 'vertiacl splits and switch']   ,
                 \ 'w' : [':set wrap'     , 'auto wrap']   ,
+                \ 'r' : [':set relativenumber'     , 'use relativenumber']   ,
                 \ }
     let g:which_key_map.l = {
                 \ 'name' : '+LeaderF' ,
@@ -527,12 +537,6 @@ call plug#end()
     noremap <silent> <Space>1  "1
     noremap <silent> <Space>2  "2
     noremap <silent> <Space>3  "3
-    noremap <silent> <Space>4  "4
-    noremap <silent> <Space>5  "5
-    noremap <silent> <Space>6  "6
-    noremap <silent> <Space>7  "7
-    noremap <silent> <Space>8  "8
-    noremap <silent> <Space>9  "9
 
     let g:which_key_map.r = {
                 \ 'name' : '+reg',
@@ -556,11 +560,11 @@ call plug#end()
  " 禁止自动换行
  set nowrap
  "设置相对行号
- set relativenumber
+ " set relativenumber
  "设置行号颜色
  highlight LineNr guifg=#A4D3EE
  "设置行号背景色
- highlight LineNr guibg=#1f1f1f
+ highlight LineNr guibg=#1c1d1f
  "突出显示当前行
  set cursorline 
  "禁用自动调整窗口
@@ -615,14 +619,11 @@ call plug#end()
  "移动到本行最尾
  map - $
 
- "映射*到gd
- map gd *
 "在foo.c 和foo.h之间切换
  nnoremap gh :A<cr>
 
  "分割窗口并在新窗口中传向定义
- " nnoremap gl :call MyMarkWord()<cr>gd:call MySetPos()<cr>
- nnoremap gl :PreviewTag <cr> gd:call MySetPos()<cr>
+ nnoremap <silent> gl :PreviewTag<cr>:call MyMarkWord()<cr>gd :call MySetPos()<cr>
  "分割窗口并在当前窗口中传向定义
  nnoremap gk :call MyMarkWordCur()<cr>
 
@@ -635,15 +636,16 @@ call plug#end()
 
  "修改S为把当前词替换成之前复制的内容
  map S viw"0p
+
  "使用黑洞寄存器处理可视模式下的复制问题
  vnoremap p "_dP
 
  "系统复制粘贴
- map <unique> <Space>y "*y
- map <unique> <Space>p "*p
- map <unique> <Space>P "*P
+ map <unique> <leader>y "*y
+ map <unique> <leader>p "*p
+ map <unique> <leader>P "*P
 
-nnoremap <C-]> g<C-]>
+" nnoremap <C-]> g<C-]>
 
 "gitgutter signcolumn color 
 highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
@@ -651,4 +653,4 @@ highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
 highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
 
 "windows下显示增强
-set rop=type:directx,renmode:5
+" set rop=type:directx,renmode:4
