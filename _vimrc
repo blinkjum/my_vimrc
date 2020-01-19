@@ -44,56 +44,10 @@ function MyDiff()
   endif
 endfunction
 
-set signcolumn=yes
-
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
-set guioptions-=L  "remove left-hand scroll bar
-
-syntax on
-set nobackup
-set noundofile
-set noswapfile
-set nowritebackup
-
 set encoding=utf-8
 set termencoding=utf-8  
 set fileencoding=chinese 
 set fileencodings=ucs-bom,utf-8,chinese 
-
-set smarttab
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-set nu
-
-" In Visual Block Mode, cursor can be positioned where there is no actual character
-set ve=block
-
-" For all text files set 'textwidth' to 78 characters.
-autocmd FileType text setlocal textwidth=78
-
-function! MySavePos()
-  let g:g_save_cursor = getpos(".")
-endfunction
-
-function! MySetPos()
-    call setpos('.', g:g_save_cursor)
-endfunction
-
-function! MyMarkWord()
-  let cword=expand('<cword>')
-  call MySavePos()
-endfunction
-
-function! MyMarkWordCur()
-    let cword=expand('<cword>')
-    let cmd='ta! '.cword.'| let g:g_gonext_flag="tn"'
-    "echo cmd
-    silent exe cmd
-endfunction
 
 
 " --------------- <plugged> ------------------------------------------------
@@ -134,6 +88,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'neoclide/coc.nvim'
 Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 Plug 'gaving/vim-textobj-argument'
 Plug 'yianwillis/vimcdoc'
 call plug#end()
@@ -340,7 +295,7 @@ call plug#end()
 
 
 " ------------------------------------------------------------------ 
-" Desc: choosewin设置 
+" Desc: vim-quickhl设置 
 " ------------------------------------------------------------------ 
     nmap <Space>n <Plug>(quickhl-manual-this)
     xmap <Space>n <Plug>(quickhl-manual-this)
@@ -503,6 +458,7 @@ call plug#end()
                 \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine'],
                 \ 's' : [':marks', 'show all marks'],
                 \ 'r' : [':QuickhlManualReset', 'Reset highlight'],
+                \ 't' : [':QuickhlManualLockWindowToggle', 'Toggle highlight window lock '],
                 \ }
     let g:which_key_map.f = {
                 \ 'name' : '+file' ,
@@ -552,8 +508,58 @@ call plug#end()
 
 
 " ------------------------------------------------------------------ 
+" Desc: my function 
+" ------------------------------------------------------------------ 
+function! MySavePos()
+  let g:g_save_cursor = getpos(".")
+endfunction
+
+function! MySetPos()
+    call setpos('.', g:g_save_cursor)
+endfunction
+
+function! MyMarkWord()
+  let cword=expand('<cword>')
+  call MySavePos()
+endfunction
+
+function! MyMarkWordCur()
+    let cword=expand('<cword>')
+    let cmd='ta! '.cword.'| let g:g_gonext_flag="tn"'
+    silent exe cmd
+endfunction
+
+
+" ------------------------------------------------------------------ 
 " Desc: <keymap> 
 " ------------------------------------------------------------------ 
+
+ set signcolumn=yes
+
+ set guioptions-=m  "remove menu bar
+ set guioptions-=T  "remove toolbar
+ set guioptions-=r  "remove right-hand scroll bar
+ set guioptions-=L  "remove left-hand scroll bar
+
+ syntax on
+ set nobackup
+ set noundofile
+ set noswapfile
+ set nowritebackup
+
+ set smarttab
+ set tabstop=4
+ set shiftwidth=4
+ set expandtab
+
+ set nu
+
+ " In Visual Block Mode, cursor can be positioned where there is no actual character
+ set ve=block
+
+ " For all text files set 'textwidth' to 78 characters.
+ autocmd FileType text setlocal textwidth=78
+
  " smartcase模式进行搜索,如果输入中有大写则区分大小写,忽略ignorecase设置
  set ignorecase 
  set smartcase 
@@ -625,7 +631,7 @@ call plug#end()
  "分割窗口并在新窗口中传向定义
  nnoremap <silent> gl :PreviewTag<cr>:call MyMarkWord()<cr>gd :call MySetPos()<cr>
  "分割窗口并在当前窗口中传向定义
- nnoremap gk :call MyMarkWordCur()<cr>
+ nnoremap <silent> gk :call MyMarkWordCur()<cr>
 
  "插入空行
  nnoremap <silent> [<Space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>
