@@ -53,15 +53,15 @@ set fileencodings=ucs-bom,utf-8,chinese
 " --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'blinkjum/MyMolokai'
+" Plug 'blinkjum/MyMolokai'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
+Plug 'NLKNguyen/papercolor-theme'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
 Plug 'abudden/taghighlight-automirror'
 " Plug 'octol/vim-cpp-enhanced-highlight'
 " Plug 'justinmk/vim-syntax-extra'
-" Plug 'vim-scripts/taghighlight'
 Plug 'vim-scripts/a.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
@@ -93,6 +93,17 @@ Plug 'gaving/vim-textobj-argument'
 Plug 'yianwillis/vimcdoc'
 call plug#end()
 " ------------------------------------------------------------------ 
+" Desc: color scheme 
+" ------------------------------------------------------------------ 
+    " syntax on
+    syntax enable
+    " colorscheme molokai
+    set background=dark
+    colorscheme PaperColor 
+    set guifont=Ubuntu\ Mono:h14
+
+
+" ------------------------------------------------------------------ 
 " Desc: gitgutter 
 " ------------------------------------------------------------------ 
     let g:gitgutter_map_keys = 0
@@ -103,6 +114,18 @@ call plug#end()
     let g:gitgutter_sign_removed = '--'
     let g:gitgutter_sign_removed_first_line = '^^'
     let g:gitgutter_sign_modified_removed = 'ww'
+    "gitgutter signcolumn color 
+    " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
+    " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
+    " highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
+
+
+" ------------------------------------------------------------------ 
+" Desc: fugitive 
+" ------------------------------------------------------------------ 
+    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0 
+    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0 
+    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0 
 
 
 " ------------------------------------------------------------------ 
@@ -154,14 +177,6 @@ call plug#end()
 " ------------------------------------------------------------------
     let g:bookmark_sign = '🐎'
     let g:bookmark_no_default_key_mappings = 1
-
-
-" ------------------------------------------------------------------ 
-" Desc: color scheme 
-" ------------------------------------------------------------------ 
-    syntax enable
-    colorscheme molokai
-    set guifont=Ubuntu\ Mono:h14
 
 
 " ------------------------------------------------------------------ 
@@ -541,7 +556,6 @@ endfunction
  set guioptions-=r  "remove right-hand scroll bar
  set guioptions-=L  "remove left-hand scroll bar
 
- syntax on
  set nobackup
  set noundofile
  set noswapfile
@@ -568,17 +582,17 @@ endfunction
  "设置相对行号
  " set relativenumber
  "设置行号颜色
- highlight LineNr guifg=#A4D3EE
+ " highlight LineNr guifg=#A4D3EE
  "设置行号背景色
- highlight LineNr guibg=#1c1d1f
+ " highlight LineNr guibg=#1c1d1f
  "突出显示当前行
- set cursorline 
+ " set cursorline
  "禁用自动调整窗口
  set noequalalways
 
  "用tab和shift+tab来切换标签页
-  nmap <tab>   :bn<cr>
-  nmap <s-tab> :bp<cr>
+ nmap <tab>   :bn<cr>
+ nmap <s-tab> :bp<cr>
 
  "插入模式下快捷移动 emacs映射
  inoremap <C-b> <Left>
@@ -619,14 +633,11 @@ endfunction
  nmap wm :vertical res 150<cr>
 
  "快速翻页
- nnoremap J <C-F>
- nnoremap K <C-B>
+ noremap J <C-F>
+ noremap K <C-B>
 
  "移动到本行最尾
  map - $
-
-"在foo.c 和foo.h之间切换
- nnoremap gh :A<cr>
 
  "分割窗口并在新窗口中传向定义
  nnoremap <silent> gl :PreviewTag<cr>:call MyMarkWord()<cr>gd :call MySetPos()<cr>
@@ -652,11 +663,6 @@ endfunction
  map <unique> <leader>P "*P
 
 " nnoremap <C-]> g<C-]>
-
-"gitgutter signcolumn color 
-highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
-highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
-highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
 
 "windows下显示增强
 " set rop=type:directx,renmode:4
