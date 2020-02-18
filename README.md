@@ -20,26 +20,32 @@
 [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 ##### 浏览tags
 [tagbar](https://github.com/majutsushi/tagbar)
-##### 模糊匹配插件
+
+[vim-preview](https://github.com/skywind3000/vim-preview)
+##### 模糊查找插件(配合[ripgrep](https://github.com/BurntSushi/ripgrep)使用)
 [LeaderF](https://github.com/Yggdroot/LeaderF)
 ##### Language Server
 [coc.nvim](https://github.com/neoclide/coc.nvim)
 ##### 补全框架
 [coc.nvim](https://github.com/neoclide/coc.nvim)
 ##### 代码片段（snippets）
+[vim-snippets](https://github.com/honza/vim-snippets)
+
 [coc-snippets](https://github.com/neoclide/coc-snippets)
 ##### git
 [vim-fugitive](https://github.com/tpope/vim-fugitive)
 
 [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
 #####  配色
-> molokai主题非常好看，不过每个人的喜好都不太一样，我在molokai的基础上修改了一些配色，字体用Ubuntu Mono很舒服
+> fork自[papercolor-theme](https://github.com/NLKNguyen/papercolor-theme)，修改了部分配色
 
- [molokai](https://github.com/tomasr/molokai)
+ [papercolor-theme](https://github.com/blinkjum/papercolor-theme)
 ##### 移动和跳转
 [vim-easymotion](https://github.com/easymotion/vim-easymotion)
 
 [vim-choosewin](https://github.com/t9md/vim-choosewin)
+
+[vim-smartword](https://github.com/kana/vim-smartword)
 ##### 多光标编辑
 [vim-visual-multi](https://github.com/mg979/vim-visual-multi)
 ##### 注释
@@ -48,9 +54,10 @@
 [DoxygenToolkit.vim](https://github.com/vim-scripts/DoxygenToolkit.vim)
 ##### 显示缩进
 [indentLine](https://github.com/Yggdroot/indentLine)
-
 ##### 语法高亮
-[taghighlight-automirror](https://github.com/abudden/taghighlight-automirror)
+[taghighlight](https://github.com/abudden/taghighlight-automirror)
+##### 高亮
+[vim-quickhl](https://github.com/t9md/vim-quickhl)
 ##### 补全
 [auto-pairs](https://github.com/jiangmiao/auto-pairs)
 
@@ -64,13 +71,3 @@
 [vim-boomarks](https://github.com/MattesGroeger/vim-bookmarks)
 
 [vim-signature](https://github.com/kshenoy/vim-signature)
-##### orgmode
-[vim-orgmode](https://github.com/jceb/vim-orgmode)
-##### markdown支持
-[vim-markdown](https://github.com/plasticboy/vim-markdown)
-
-[vim-markdown-toc](https://github.com/mzlogin/vim-markdown-toc)
-
-[markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
-##### 效率统计
-[vim-wakatime](https://github.com/wakatime/vim-wakatime)
