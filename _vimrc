@@ -55,7 +55,7 @@ set fileencodings=ucs-bom,utf-8,chinese
 call plug#begin('~/.vim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'blinkjum/papercolor-theme'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-easytags'
 Plug 'abudden/taghighlight-automirror'
