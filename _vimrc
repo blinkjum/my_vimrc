@@ -2,8 +2,8 @@
 source $VIMRUNTIME/vimrc_example.vim
 
 set nocompatible " Use Vim settings, rather then Vi settings (much better!). This must be first, because it changes other options as a side effect.
-set tags+=./tags,./../tags,./**/tags,tags " which tags files CTRL-] will find 
-set hid " allow to change buffer without saving 
+set tags+=./tags,./../tags,./**/tags,tags " which tags files CTRL-] will find
+set hid " allow to change buffer without saving
 set showfulltag " show tag with function protype.
 
 " Use the internal diff if available.
@@ -45,15 +45,14 @@ function MyDiff()
 endfunction
 
 set encoding=utf-8
-set termencoding=utf-8  
-set fileencoding=chinese 
-set fileencodings=ucs-bom,utf-8,chinese 
+set termencoding=utf-8
+set fileencoding=chinese
+set fileencodings=ucs-bom,utf-8,chinese
 
 
 " --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-" Plug 'blinkjum/MyMolokai'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'NLKNguyen/papercolor-theme'
@@ -75,7 +74,7 @@ Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vim-which-key'
 Plug 'vim-airline/vim-airline'
 Plug 'mg979/vim-visual-multi'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
 Plug 't9md/vim-quickhl'
@@ -87,25 +86,25 @@ Plug 'skywind3000/vim-preview'
 Plug 'kshenoy/vim-signature'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'neoclide/coc.nvim'
-Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
 Plug 'gaving/vim-textobj-argument'
+Plug 'kana/vim-smartword'
 Plug 'yianwillis/vimcdoc'
+Plug 'honza/vim-snippets'
+
 call plug#end()
-" ------------------------------------------------------------------ 
-" Desc: color scheme 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: color scheme
+" ------------------------------------------------------------------
     " syntax on
     syntax enable
-    " colorscheme molokai
     set background=dark
-    colorscheme PaperColor 
+    colorscheme PaperColor
     set guifont=Ubuntu\ Mono:h14
 
 
-" ------------------------------------------------------------------ 
-" Desc: gitgutter 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: gitgutter
+" ------------------------------------------------------------------
     let g:gitgutter_map_keys = 0
     set updatetime=300
     " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
@@ -114,23 +113,23 @@ call plug#end()
     let g:gitgutter_sign_removed = '--'
     let g:gitgutter_sign_removed_first_line = '^^'
     let g:gitgutter_sign_modified_removed = 'ww'
-    "gitgutter signcolumn color 
+    "gitgutter signcolumn color
     " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
     " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
     " highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
 
 
-" ------------------------------------------------------------------ 
-" Desc: fugitive 
-" ------------------------------------------------------------------ 
-    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0 
-    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0 
-    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0 
+" ------------------------------------------------------------------
+" Desc: fugitive
+" ------------------------------------------------------------------
+    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
+    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
+    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
 
 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
 " Desc: vim-cpp-enhanced-highlight
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
     let g:cpp_class_scope_highlight = 1
     let g:cpp_member_variable_highlight = 1
     let g:cpp_class_decl_highlight = 1
@@ -139,9 +138,9 @@ call plug#end()
     let g:cpp_concepts_highlight = 1
 
 
-" ------------------------------------------------------------------ 
-" Desc: nerdcommenter 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: nerdcommenter
+" ------------------------------------------------------------------
     "1、 \cc 注释当前行和选中行
     "2、 \cn 没有发现和\cc有区别
     "3、 \c<空格> 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作
@@ -168,7 +167,7 @@ call plug#end()
     let g:NERDCommentEmptyLines = 1
     " Enable trimming of trailing whitespace when uncommenting
     let g:NERDTrimTrailingWhitespace = 1
-    " Enable NERDCommenterToggle to check all selected lines is commented or not 
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
     let g:NERDToggleCheckAllLines = 1
 
 
@@ -179,9 +178,9 @@ call plug#end()
     let g:bookmark_no_default_key_mappings = 1
 
 
-" ------------------------------------------------------------------ 
-" Desc: airline 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: airline
+" ------------------------------------------------------------------
     let g:airline#extensions#tabline#enabled = 1
     "显示tabline序号
     " let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -190,18 +189,22 @@ call plug#end()
     let g:airline#extensions#bookmark#enabled = 1
     " 关闭空白符检测
     let g:airline#extensions#whitespace#enabled=0
+    "关闭coc语法错误检测提示
+    let g:airline#extensions#coc#enabled = 0
+
     function! AirlineInit()
         " let g:airline_section_a = airline#section#create(['mode'])
-        let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[ASCII=%02.4B]'])
+        let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[0x%02.4B]'])
         " let g:airline_section_c = airline#section#create(['%{getcwd()}'])
+        let g:airline_section_z =  airline#section#create(['%l/%L %c'])
     endfunction
     autocmd User AirlineAfterInit call AirlineInit()
 
 
 
-" ------------------------------------------------------------------ 
-" Desc: echodoc 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: echodoc
+" ------------------------------------------------------------------
     set noshowmode
     " lnoshowmodeet g:echodoc_enable_at_startup = 1
     "
@@ -210,11 +213,11 @@ call plug#end()
 	" " To use a custom highlight for the popup window,
 	" " change Pmenu to your highlight group
 	" highlight link EchoDocPopup Pmenu
-    
 
-" ------------------------------------------------------------------ 
-" Desc: LeaderF 
-" ------------------------------------------------------------------ 
+
+" ------------------------------------------------------------------
+" Desc: LeaderF
+" ------------------------------------------------------------------
     let g:Lf_PreviewInPopup = 1
     "指定 popup window / floating window 的位置
     let g:Lf_PreviewHorizontalPosition = 'center'
@@ -233,9 +236,9 @@ call plug#end()
     noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -E GBK -e %s ", expand("<cword>"))<CR>
 
 
-" ------------------------------------------------------------------ 
-" Desc: easymotion 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: easymotion
+" ------------------------------------------------------------------
     "easymotion 特殊映射，其他不变
     map E <Plug>(easymotion-e)
     map B <Plug>(easymotion-b)
@@ -243,50 +246,60 @@ call plug#end()
     map <silent> <Space>j  <Plug>(easymotion-j)
     map <silent> <Space>k  <Plug>(easymotion-k)
     " keep cursor column when JK motion
-    let g:EasyMotion_startofline = 0 
+    let g:EasyMotion_startofline = 0
 
 
-" ------------------------------------------------------------------ 
-" Desc: vim-textobj-argument 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: smartword
+" ------------------------------------------------------------------
+    "移动增强
+	map w  <Plug>(smartword-w)
+	map b  <Plug>(smartword-b)
+	map e  <Plug>(smartword-e)
+	map ge  <Plug>(smartword-ge)
+
+
+" ------------------------------------------------------------------
+" Desc: vim-textobj-argument
+" ------------------------------------------------------------------
 "基本操作
 " c/d/v/y + ia                 改写/删除/选取/复制 函数参数
 " c/d/v/y + aa                 改写/删除/选取/复制 函数参数（包括逗号分隔）
 
 
-" ------------------------------------------------------------------ 
-" Desc: vim-preview 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: vim-preview
+" ------------------------------------------------------------------
     noremap gs :PreviewSignature!<cr>
 
 
-" ------------------------------------------------------------------ 
-" Desc: nerdtree 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: nerdtree
+" ------------------------------------------------------------------
     map <F3> :NERDTreeToggle<CR>
 
 
-" ------------------------------------------------------------------ 
-" Desc: ctags设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: ctags设置
+" ------------------------------------------------------------------
     "更新tags
     map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extra=+q .<cr><cr>
     "更新tag着色文件
     map tup :UpdateTypesFile<cr>
 
 
-" ------------------------------------------------------------------ 
-" Desc: tagbar设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: tagbar设置
+" ------------------------------------------------------------------
     map tl :TagbarToggle<CR>
     map tk :TagbarOpenAutoClose<CR>
     " let g:tagbar_autofocus = 1
     let g:tagbar_sort = 0
 
 
-" ------------------------------------------------------------------ 
-" Desc: choosewin设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: choosewin设置
+" ------------------------------------------------------------------
     " nmap wi <Plug>(choosewin)
     " use overlay feature
     let g:choosewin_overlay_enable = 1
@@ -309,37 +322,37 @@ call plug#end()
     let g:choosewin_tabline_replace    = 0 " don't replace tabline
 
 
-" ------------------------------------------------------------------ 
-" Desc: vim-quickhl设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: vim-quickhl设置
+" ------------------------------------------------------------------
     nmap <Space>n <Plug>(quickhl-manual-this)
     xmap <Space>n <Plug>(quickhl-manual-this)
     nmap <Space>N <Plug>(quickhl-manual-reset)
     xmap <Space>N <Plug>(quickhl-manual-reset)
 
 
-" ------------------------------------------------------------------ 
-" Desc: vim-markdown设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: vim-markdown设置
+" ------------------------------------------------------------------
     let g:vim_markdown_math = 1
 
 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
 " Desc: vim-markdown-toc设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
 
 
-" ------------------------------------------------------------------ 
-" Desc: markdown-preview.nvim设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: markdown-preview.nvim设置
+" ------------------------------------------------------------------
     let g:mkdp_path_to_chrome = "chrome"
     "普通模式
-    nmap <silent> <F8> <Plug>MarkdownPreview        
+    nmap <silent> <F8> <Plug>MarkdownPreview
 
 
-" ------------------------------------------------------------------ 
-" Desc: coc.nvim设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: coc.nvim设置
+" ------------------------------------------------------------------
     " don't give |ins-completion-menu| messages.
     set shortmess+=c
 
@@ -393,10 +406,22 @@ call plug#end()
     " Use <C-j> for both expand and jump (make expand higher priority.)
     imap <C-j> <Plug>(coc-snippets-expand-jump)
 
+    " inoremap <silent><expr> <TAB>
+    "             \ pumvisible() ? coc#_select_confirm() :
+    "             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+    "             \ <SID>check_back_space() ? "\<TAB>" :
+    "             \ coc#refresh()
+    "
+    " function! s:check_back_space() abort
+    "     let col = col('.') - 1
+    "     return !col || getline('.')[col - 1]  =~# '\s'
+    " endfunction
+    "
+    " let g:coc_snippet_next = '<tab>'
 
-" ------------------------------------------------------------------ 
-" Desc: vim-which-key设置 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: vim-which-key设置
+" ------------------------------------------------------------------
     " By default timeoutlen is 1000 ms
     set timeoutlen=400
     let g:which_key_map =  {}
@@ -522,9 +547,9 @@ call plug#end()
     vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 
-" ------------------------------------------------------------------ 
-" Desc: my function 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: my function
+" ------------------------------------------------------------------
 function! MySavePos()
   let g:g_save_cursor = getpos(".")
 endfunction
@@ -545,9 +570,9 @@ function! MyMarkWordCur()
 endfunction
 
 
-" ------------------------------------------------------------------ 
-" Desc: <keymap> 
-" ------------------------------------------------------------------ 
+" ------------------------------------------------------------------
+" Desc: <keymap>
+" ------------------------------------------------------------------
 
  set signcolumn=yes
 
@@ -575,8 +600,8 @@ endfunction
  autocmd FileType text setlocal textwidth=78
 
  " smartcase模式进行搜索,如果输入中有大写则区分大小写,忽略ignorecase设置
- set ignorecase 
- set smartcase 
+ set ignorecase
+ set smartcase
  " 禁止自动换行
  set nowrap
  "设置相对行号
@@ -604,18 +629,18 @@ endfunction
  inoremap <C-a> <Home>
  inoremap <C-e> <End>
 
- "<C-d>向后删除一个字符
- inoremap <C-d> <c-o>s 
- "<C-h>向前删除一个字符
- inoremap <C-h> <BS>
- "<A-d>向后删除一个单词
- inoremap <A-d> <c-o>de
- "<C-w>向前删除一个单词
- inoremap <C-w> <c-o>db
- "<C-u>向前删除到句首
- inoremap <C-u> <c-o>d^
- "<C-k>向后删除到句尾
- inoremap <C-k> <c-o>d$
+ " "<C-d>向后删除一个字符
+ " inoremap <C-d> <c-o>s
+ " "<C-h>向前删除一个字符
+ " inoremap <C-h> <BS>
+ " "<A-d>向后删除一个单词
+ " inoremap <A-d> <c-o>de
+ " "<C-w>向前删除一个单词
+ " inoremap <C-w> <c-o>db
+ " "<C-u>向前删除到句首
+ " inoremap <C-u> <c-o>d^
+ " "<C-k>向后删除到句尾
+ " inoremap <C-k> <c-o>d$
 
  " my widnows
  nmap wi <Plug>(choosewin)
@@ -662,7 +687,9 @@ endfunction
  map <unique> <leader>p "*p
  map <unique> <leader>P "*P
 
-" nnoremap <C-]> g<C-]>
-
 "windows下显示增强
 " set rop=type:directx,renmode:4
+
+"高亮高亮多余的空白字符及 Tab
+" highlight RedundantSpaces ctermbg=red guibg=red
+" match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
