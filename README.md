@@ -17,7 +17,7 @@
 ##### 文件树
 [nerdtree](https://github.com/scrooloose/nerdtree)
 
-[nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
+[nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin) 工程一大查询git修改动作会有明显卡顿，不推荐
 ##### 浏览tags
 [tagbar](https://github.com/majutsushi/tagbar)
 
