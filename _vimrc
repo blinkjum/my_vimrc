@@ -64,7 +64,7 @@ Plug 'abudden/taghighlight-automirror'
 Plug 'vim-scripts/a.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -90,6 +90,8 @@ Plug 'gaving/vim-textobj-argument'
 Plug 'kana/vim-smartword'
 Plug 'yianwillis/vimcdoc'
 Plug 'honza/vim-snippets'
+Plug 'vimwiki/vimwiki'
+Plug 'blinkjum/mycheatsheet'
 
 call plug#end()
 " ------------------------------------------------------------------
@@ -125,6 +127,17 @@ call plug#end()
     hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
     hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
     hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
+
+
+" ------------------------------------------------------------------
+" Desc: vimwiki
+" ------------------------------------------------------------------
+    hi VimwikiHeader1 guifg=#FF0000
+    hi VimwikiHeader2 guifg=#00FF00
+    hi VimwikiHeader3 guifg=#0000FF
+    hi VimwikiHeader4 guifg=#FF00FF
+    hi VimwikiHeader5 guifg=#00FFFF
+    hi VimwikiHeader6 guifg=#FFFF00
 
 
 " ------------------------------------------------------------------
@@ -485,6 +498,7 @@ call plug#end()
                 \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']            ,
                 \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
                 \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
+                \ 'l' : [':G log --oneline --graph --decorate' , 'git log graph']   ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
@@ -522,6 +536,7 @@ call plug#end()
                 \ 'l' : [':h local-additions'  , 'local plugin doc']   ,
                 \ 'h' : [':h'  , 'vim help indix']   ,
                 \ 'o' : [':h options'  , 'vim options ']   ,
+                \ 'i' : [':h my_index'  , 'cheatsheet index ']   ,
                 \ }
 
     nnoremap <silent> <Space>ry  "0p
@@ -693,3 +708,6 @@ endfunction
 "高亮高亮多余的空白字符及 Tab
 " highlight RedundantSpaces ctermbg=red guibg=red
 " match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+
+ "快速退出插入模式
+ imap jk <c-[>
