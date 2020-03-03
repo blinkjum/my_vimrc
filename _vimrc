@@ -53,7 +53,7 @@ set fileencodings=ucs-bom,utf-8,chinese
 " --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'blinkjum/papercolor-theme'
 " Plug 'xolox/vim-misc'
@@ -92,6 +92,7 @@ Plug 'yianwillis/vimcdoc'
 Plug 'honza/vim-snippets'
 Plug 'vimwiki/vimwiki'
 Plug 'blinkjum/mycheatsheet'
+Plug 'Krasjet/auto.pairs'
 
 call plug#end()
 " ------------------------------------------------------------------
@@ -207,7 +208,7 @@ call plug#end()
 
     function! AirlineInit()
         " let g:airline_section_a = airline#section#create(['mode'])
-        let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|[0x%02.4B]'])
+        let g:airline_section_c = airline#section#create_left(['%f%m%r%h%w|0x%02.4B'])
         " let g:airline_section_c = airline#section#create(['%{getcwd()}'])
         let g:airline_section_z =  airline#section#create(['%l/%L %c'])
     endfunction
@@ -664,6 +665,7 @@ endfunction
  nmap wk <C-W>k
  nmap wh <C-W>h
  nmap wv <C-W>v
+ nmap wb <C-W>vwl
  nmap wc <C-W>c
  nmap wp :sp<cr>
  nmap ws :vertical res 50<cr>
