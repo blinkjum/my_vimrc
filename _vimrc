@@ -53,46 +53,56 @@ set fileencodings=ucs-bom,utf-8,chinese
 " --------------- <plugged> ------------------------------------------------
 
 call plug#begin('~/.vim/plugged')
-" Plug 'jiangmiao/auto-pairs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'blinkjum/papercolor-theme'
-" Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-easytags'
-Plug 'abudden/taghighlight-automirror'
-" Plug 'octol/vim-cpp-enhanced-highlight'
-" Plug 'justinmk/vim-syntax-extra'
-Plug 'vim-scripts/a.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Yggdroot/LeaderF'
-Plug 'Yggdroot/indentLine'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'majutsushi/tagbar'
-Plug 'liuchengxu/vim-which-key'
-Plug 'vim-airline/vim-airline'
-Plug 'mg979/vim-visual-multi'
-" Plug 'wakatime/vim-wakatime'
-Plug 'tpope/vim-surround'
+"界面增强
 Plug 't9md/vim-choosewin'
-Plug 't9md/vim-quickhl'
-" Plug 'Shougo/echodoc.vim'
+Plug 'blinkjum/papercolor-theme'
+Plug 'vim-airline/vim-airline'
+"代码可读性增强
+Plug 'majutsushi/tagbar'
+Plug 'Yggdroot/indentLine'
 Plug 'skywind3000/vim-preview'
-" Plug 'plasticboy/vim-markdown'
-" Plug 'mzlogin/vim-markdown-toc'
-" Plug 'iamcco/markdown-preview.nvim'
-Plug 'kshenoy/vim-signature'
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'neoclide/coc.nvim'
-Plug 'gaving/vim-textobj-argument'
-Plug 'kana/vim-smartword'
-Plug 'yianwillis/vimcdoc'
-Plug 'honza/vim-snippets'
-Plug 'vimwiki/vimwiki'
-Plug 'blinkjum/mycheatsheet'
+Plug 'abudden/taghighlight-automirror'
+Plug 'sheerun/vim-polyglot'
+Plug 't9md/vim-quickhl'
+Plug 'itchyny/vim-cursorword' 
+"文本编辑增强
 Plug 'Krasjet/auto.pairs'
+Plug 'tpope/vim-surround'
+Plug 'mg979/vim-visual-multi'
+Plug 'lyokha/vim-xkbswitch'
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'gaving/vim-textobj-argument'
+"移动，跳转增强
+Plug 'easymotion/vim-easymotion'
+Plug 'kana/vim-smartword'
+"版本控制
+Plug 'cohama/agit.vim' 
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+"补全
+Plug 'neoclide/coc.nvim'
+Plug 'honza/vim-snippets'
+"搜索
+Plug 'Yggdroot/LeaderF'
+"书签增强
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'kshenoy/vim-signature'
+"快捷键映射管理
+Plug 'liuchengxu/vim-which-key'
+"文件树
+Plug 'vim-scripts/a.vim'
+Plug 'scrooloose/nerdtree'
+"帮助文档速查表
+Plug 'vimwiki/vimwiki'
+Plug 'yianwillis/vimcdoc'
+Plug 'blinkjum/mycheatsheet'
+
+"待定功能
+"Plug 'plasticboy/vim-markdown'
+"Plug 'mzlogin/vim-markdown-toc'
+"Plug 'iamcco/markdown-preview.nvim'
+"Plug 'skywind3000/vim-terminal-help'
 
 call plug#end()
 " ------------------------------------------------------------------
@@ -102,7 +112,11 @@ call plug#end()
     syntax enable
     set background=dark
     colorscheme PaperColor
-    set guifont=Ubuntu\ Mono:h14
+    set guifont=Ubuntu_Mono_Bold:h14
+    " set guifont=Cascadia\ Mono\ PL:h12:w7
+    " set guifont=Fira_Code:h12:w7
+    " set guifont=InputMonoCompressed_Medium:h13:w7
+    " set guifont=DejaVu_Sans_Mono:h12:w7:b
 
 
 " ------------------------------------------------------------------
@@ -128,6 +142,13 @@ call plug#end()
     hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
     hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
     hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
+
+
+" ------------------------------------------------------------------
+" Desc: vim-xkbswitch 输入法自动切换插件
+" ------------------------------------------------------------------
+    "插件需要的支持文件后续要放在统一路径下管理
+    let g:XkbSwitchLib = 'c:\libxkbswitch64.dll' 
 
 
 " ------------------------------------------------------------------
@@ -168,9 +189,9 @@ call plug#end()
     "11、\cl \cb 左对齐和左右对其，左右对其主要针对/**/
     "12、\cu 取消注释
     " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 1
+    let g:NERDSpaceDelims = 0
     " Use compact syntax for prettified multi-line comments
-    let g:NERDCompactSexyComs = 1
+    let g:NERDCompactSexyComs = 0
     " Align line-wise comment delimiters flush left instead of following code indentation
     let g:NERDDefaultAlign = 'left'
     " Set a language to use its alternate delimiters by default
@@ -183,7 +204,6 @@ call plug#end()
     let g:NERDTrimTrailingWhitespace = 1
     " Enable NERDCommenterToggle to check all selected lines is commented or not
     let g:NERDToggleCheckAllLines = 1
-
 
 " ------------------------------------------------------------------
 " Desc: bookmark
@@ -214,6 +234,29 @@ call plug#end()
     endfunction
     autocmd User AirlineAfterInit call AirlineInit()
 
+    if !exists('g:airline_symbols')
+        let g:airline_symbols = {}
+    endif
+    "not use separators,
+    let g:airline_left_sep = ''
+    let g:airline_left_alt_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_alt_sep = ''
+    let g:airline_symbols.branch = ''
+    let g:airline_symbols.readonly = ''
+    let g:airline_symbols.linenr = ''
+    let g:airline_symbols.maxlinenr = ''
+    let g:airline_symbols.dirty=''
+
+    " let g:airline_left_sep = ''
+    " let g:airline_left_alt_sep = ''
+    " let g:airline_right_sep = ''
+    " let g:airline_right_alt_sep = ''
+    " let g:airline_symbols.branch = ''
+    " let g:airline_symbols.readonly = ''
+    " let g:airline_symbols.linenr = '☰'
+    " let g:airline_symbols.maxlinenr = ''
+    " let g:airline_symbols.dirty='⚡'
 
 
 " ------------------------------------------------------------------
@@ -237,6 +280,8 @@ call plug#end()
     let g:Lf_PreviewHorizontalPosition = 'center'
     "指定 popup window / floating window 的宽度。
     let g:Lf_PreviewPopupWidth = 0
+    "not use separators,
+    let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
@@ -248,7 +293,6 @@ call plug#end()
     " noremap <c-m> :LeaderfRgRecall<cr>
     "全局搜索 -E GBK 指定编码保证汉字搜索
     noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -E GBK -e %s ", expand("<cword>"))<CR>
-
 
 " ------------------------------------------------------------------
 " Desc: easymotion
@@ -486,6 +530,10 @@ call plug#end()
                 \ 'p' : ['bprevious' , 'previous-buffer'] ,
                 \ }
 
+    let g:which_key_map.e = {
+                \ 'name' : '+edit' ,
+                \ 'l' : ['`.'        , 'last edited position']   ,
+                \ }
     let g:which_key_map.g = {
                 \ 'name' : '+git' ,
                 \ 'g' : [':G'                              , 'GitStatus']  ,
@@ -499,7 +547,8 @@ call plug#end()
                 \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']            ,
                 \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
                 \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
-                \ 'l' : [':G log --oneline --graph --decorate' , 'git log graph']   ,
+                \ 'l' : [':Agit' , 'git log graph']   ,
+                \ 'z' : [':!lazygit' , 'lazygit']   ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
@@ -592,6 +641,7 @@ endfunction
 
  set signcolumn=yes
 
+ set guioptions+=!  "在终端窗口中执行外部命令
  set guioptions-=m  "remove menu bar
  set guioptions-=T  "remove toolbar
  set guioptions-=r  "remove right-hand scroll bar
