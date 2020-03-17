@@ -2,7 +2,7 @@
 > 分享一下我在windos上的vim配置，用了很久的[exvim](https://github.com/exvim/main)，但是vim7.4缺乏异步特性，[spacevim](https://github.com/SpaceVim/SpaceVim)体验很不错，不过略显臃肿，最后还是自己折腾了一个
 <!-- vim-markdown-toc GFM -->
 - [插件](#插件)
- 
+
 <!-- vim-markdown-toc -->
 
 # 插件
@@ -36,6 +36,8 @@
 [vim-fugitive](https://github.com/tpope/vim-fugitive)
 
 [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+
+[agit](https://github.com/cohama/agit.vim)
 #####  配色
 > fork自[papercolor-theme](https://github.com/NLKNguyen/papercolor-theme)，修改了部分配色
 
@@ -56,10 +58,14 @@
 [indentLine](https://github.com/Yggdroot/indentLine)
 ##### 语法高亮
 [taghighlight](https://github.com/abudden/taghighlight-automirror)
+
+[vim-polyglot](https://github.com/sheerun/vim-polyglot)
 ##### 高亮
 [vim-quickhl](https://github.com/t9md/vim-quickhl)
+
+[vim-cursorword](https://github.com/itchyny/vim-cursorword)
 ##### 补全
-[auto-pairs](https://github.com/jiangmiao/auto-pairs)
+[auto-pairs](https://github.com/itchyny/vim-cursorword)
 
 [vim-surround](https://github.com/tpope/vim-surround)
 
@@ -71,3 +77,13 @@
 [vim-boomarks](https://github.com/MattesGroeger/vim-bookmarks)
 
 [vim-signature](https://github.com/kshenoy/vim-signature)
+
+##### 帮助文档&速查表
+[vimwiki](https://github.com/vimwiki/vimwiki)
+
+[vimcdoc](https://github.com/yianwillis/vimcdoc)
+
+[mycheatsheet](https://github.com/blinkjum/mycheatsheet)
+
+##### 输入法切换
+[vim-xkbswitch](https://github.com/lyokha/vim-xkbswitch)

@@ -130,6 +130,8 @@ call plug#end()
     let g:gitgutter_sign_removed = '--'
     let g:gitgutter_sign_removed_first_line = '^^'
     let g:gitgutter_sign_modified_removed = 'ww'
+    "use floating window preview 
+    let g:gitgutter_preview_win_floating = 1
     "gitgutter signcolumn color
     " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
     " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
@@ -148,7 +150,7 @@ call plug#end()
 " Desc: vim-xkbswitch 输入法自动切换插件
 " ------------------------------------------------------------------
     "插件需要的支持文件后续要放在统一路径下管理
-    let g:XkbSwitchLib = 'c:\libxkbswitch64.dll' 
+    let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
 
 
 " ------------------------------------------------------------------
@@ -225,6 +227,10 @@ call plug#end()
     let g:airline#extensions#whitespace#enabled=0
     "关闭coc语法错误检测提示
     let g:airline#extensions#coc#enabled = 0
+    "关闭xkblayout提示
+    let g:airline#extensions#xkblayout#enabled = 0
+    "关闭单词计数
+    let g:airline#extensions#wordcount#enabled = 0
 
     function! AirlineInit()
         " let g:airline_section_a = airline#section#create(['mode'])
@@ -751,8 +757,10 @@ endfunction
 
  "系统复制粘贴
  map <unique> <leader>y "*y
- map <unique> <leader>p "*p
- map <unique> <leader>P "*P
+ nnoremap <unique> <leader>p "*p
+ nnoremap <unique> <leader>P "*P
+ vnoremap <unique> <leader>p "_d"*P
+ vnoremap <unique> <leader>P "_d"*P
 
 "windows下显示增强
 " set rop=type:directx,renmode:4
