@@ -51,6 +51,7 @@ set fileencodings=ucs-bom,utf-8,chinese
 
 
 " --------------- <plugged> ------------------------------------------------
+"使用 --startuptime 选项来查看vim启动时间 例如:vim --startuptime vim.log
 
 call plug#begin('~/.vim/plugged')
 "界面增强
@@ -58,15 +59,16 @@ Plug 't9md/vim-choosewin'
 Plug 'blinkjum/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 "代码可读性增强
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar',{ 'on': ['TagbarToggle','TagbarOpenAutoClose'] }
 Plug 'Yggdroot/indentLine'
-Plug 'skywind3000/vim-preview'
+Plug 'skywind3000/vim-preview',{ 'on': ['PreviewTag','PreviewSignature'] }
 Plug 'abudden/taghighlight-automirror'
 Plug 'sheerun/vim-polyglot'
 Plug 't9md/vim-quickhl'
 Plug 'itchyny/vim-cursorword' 
 "文本编辑增强
-Plug 'Krasjet/auto.pairs'
+"Plug 'Krasjet/auto.pairs'
+Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-surround'
 Plug 'mg979/vim-visual-multi'
 Plug 'lyokha/vim-xkbswitch'
@@ -77,7 +79,7 @@ Plug 'gaving/vim-textobj-argument'
 Plug 'easymotion/vim-easymotion'
 Plug 'kana/vim-smartword'
 "版本控制
-Plug 'cohama/agit.vim' 
+Plug 'cohama/agit.vim',{ 'on': ['Agit','AgitFile'] }
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 "补全
@@ -92,7 +94,7 @@ Plug 'kshenoy/vim-signature'
 Plug 'liuchengxu/vim-which-key'
 "文件树
 Plug 'vim-scripts/a.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree',{'on':['NERDTreeToggle','NERDTreeFind']}
 "帮助文档速查表
 Plug 'vimwiki/vimwiki'
 Plug 'yianwillis/vimcdoc'
@@ -231,6 +233,8 @@ call plug#end()
     let g:airline#extensions#xkblayout#enabled = 0
     "关闭单词计数
     let g:airline#extensions#wordcount#enabled = 0
+    "关闭gitgutter hunks改动显示
+    let g:airline#extensions#hunks#enabled = 0
 
     function! AirlineInit()
         " let g:airline_section_a = airline#section#create(['mode'])
@@ -298,7 +302,7 @@ call plug#end()
     " noremap <c-n> :LeaderfFunction!<cr>
     " noremap <c-m> :LeaderfRgRecall<cr>
     "全局搜索 -E GBK 指定编码保证汉字搜索
-    noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --stayOpen -E GBK -e %s ", expand("<cword>"))<CR>
+    noremap <c-f> :<C-U><C-R>=printf("Leaderf rg --stayOpen -S -w -E GBK -e %s ", expand("<cword>"))<CR>
 
 " ------------------------------------------------------------------
 " Desc: easymotion
@@ -347,16 +351,16 @@ call plug#end()
 " Desc: ctags设置
 " ------------------------------------------------------------------
     "更新tags
-    map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extra=+q .<cr><cr>
+    "map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .<cr><cr>
     "更新tag着色文件
-    map tup :UpdateTypesFile<cr>
+    "map tup :UpdateTypesFile<cr>
 
 
 " ------------------------------------------------------------------
 " Desc: tagbar设置
 " ------------------------------------------------------------------
-    map tl :TagbarToggle<CR>
-    map tk :TagbarOpenAutoClose<CR>
+    "map tl :TagbarToggle<CR>
+    "map tk :TagbarOpenAutoClose<CR>
     " let g:tagbar_autofocus = 1
     let g:tagbar_sort = 0
 
@@ -594,6 +598,13 @@ call plug#end()
                 \ 'o' : [':h options'  , 'vim options ']   ,
                 \ 'i' : [':h my_index'  , 'cheatsheet index ']   ,
                 \ }
+    let g:which_key_map.t = {
+                \ 'name' : '+tag' ,
+                \ 't' : [':!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .'  , 'Generate tag file'],
+                \ 'u' : [':UpdateTypesFile'  , 'UpdateTypesFile'],
+                \ 'l' : [':TagbarToggle'  , 'TagbarToggle'],
+                \ 'k' : [':TagbarOpenAutoClose'  , 'TagbarOpenAutoClose'],
+                \ }
 
     nnoremap <silent> <Space>ry  "0p
     nnoremap <silent> <Space>r%  "%p
@@ -701,6 +712,13 @@ endfunction
  inoremap <C-a> <Home>
  inoremap <C-e> <End>
 
+ "命令模式下快捷移动 emacs映射
+ cnoremap <C-a> <Home>
+ cnoremap <C-b> <Left>
+ cnoremap <C-f> <Right>
+ cnoremap <C-p> <Up>
+ cnoremap <C-n> <Down>
+
  " "<C-d>向后删除一个字符
  " inoremap <C-d> <c-o>s
  " "<C-h>向前删除一个字符
@@ -734,8 +752,32 @@ endfunction
  noremap J <C-F>
  noremap K <C-B>
 
+
+ " 智能 Home
+ function! SmartHome()
+     let str_before_cursor = strpart(getline('.'), 0, col('.') - 1)
+     let wrap_prefix = &wrap ? 'g' : ''
+     if str_before_cursor !~ '^\s*$'
+         return wrap_prefix . '^ze'
+     else
+         return wrap_prefix . '0'
+     endif
+ endfunction
+ noremap <expr> ^ SmartHome()
+ sunmap ^
+ noremap <expr> H SmartHome()
+ sunmap H
+
+ "智能 End
+ nnoremap <expr> L &wrap ? 'g$' : '$'
+ onoremap <expr> L &wrap ? 'g$' : '$'
+ xnoremap <expr> L &wrap ? 'g$h' : '$h'
+
  "移动到本行最尾
  map - $
+
+ "将t映射到%
+ map t %
 
  "分割窗口并在新窗口中传向定义
  nnoremap <silent> gl :PreviewTag<cr>:call MyMarkWord()<cr>gd :call MySetPos()<cr>
