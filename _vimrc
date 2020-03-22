@@ -90,8 +90,6 @@ Plug 'Yggdroot/LeaderF'
 "书签增强
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'kshenoy/vim-signature'
-"快捷键映射管理
-Plug 'liuchengxu/vim-which-key'
 "文件树
 Plug 'vim-scripts/a.vim'
 Plug 'scrooloose/nerdtree',{'on':['NERDTreeToggle','NERDTreeFind']}
@@ -100,6 +98,8 @@ Plug 'vimwiki/vimwiki'
 Plug 'yianwillis/vimcdoc'
 Plug 'blinkjum/mycheatsheet'
 
+"快捷键映射管理
+Plug 'liuchengxu/vim-which-key'
 "待定功能
 "Plug 'plasticboy/vim-markdown'
 "Plug 'mzlogin/vim-markdown-toc'
@@ -107,6 +107,38 @@ Plug 'blinkjum/mycheatsheet'
 "Plug 'skywind3000/vim-terminal-help'
 
 call plug#end()
+
+
+
+"##############################################################################
+"# 界面增强
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: choosewin设置
+" ------------------------------------------------------------------
+    " nmap wi <Plug>(choosewin)
+    " use overlay feature
+    let g:choosewin_overlay_enable = 1
+
+    " workaround for the overlay font being broken on mutibyte buffer.
+    let g:choosewin_overlay_clear_multibyte = 1
+
+    " tmux-like overlay color
+    let g:choosewin_color_overlay = {
+                \ 'gui': ['DodgerBlue3', 'DodgerBlue3'],
+                \ 'cterm': [25, 25]
+                \ }
+    let g:choosewin_color_overlay_current = {
+                \ 'gui': ['firebrick1', 'firebrick1'],
+                \ 'cterm': [124, 124]
+                \ }
+
+    let g:choosewin_blink_on_land      = 0 " don't blink at land
+    let g:choosewin_statusline_replace = 0 " don't replace statusline
+    let g:choosewin_tabline_replace    = 0 " don't replace tabline
+
+
 " ------------------------------------------------------------------
 " Desc: color scheme
 " ------------------------------------------------------------------
@@ -119,101 +151,6 @@ call plug#end()
     " set guifont=Fira_Code:h12:w7
     " set guifont=InputMonoCompressed_Medium:h13:w7
     " set guifont=DejaVu_Sans_Mono:h12:w7:b
-
-
-" ------------------------------------------------------------------
-" Desc: gitgutter
-" ------------------------------------------------------------------
-    let g:gitgutter_map_keys = 0
-    set updatetime=300
-    " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
-    let g:gitgutter_sign_added = '++'
-    let g:gitgutter_sign_modified = '~~'
-    let g:gitgutter_sign_removed = '--'
-    let g:gitgutter_sign_removed_first_line = '^^'
-    let g:gitgutter_sign_modified_removed = 'ww'
-    "use floating window preview 
-    let g:gitgutter_preview_win_floating = 1
-    "gitgutter signcolumn color
-    " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
-    " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
-    " highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
-
-
-" ------------------------------------------------------------------
-" Desc: fugitive
-" ------------------------------------------------------------------
-    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
-    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
-    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
-
-
-" ------------------------------------------------------------------
-" Desc: vim-xkbswitch 输入法自动切换插件
-" ------------------------------------------------------------------
-    "插件需要的支持文件后续要放在统一路径下管理
-    let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
-
-
-" ------------------------------------------------------------------
-" Desc: vimwiki
-" ------------------------------------------------------------------
-    hi VimwikiHeader1 guifg=#FF0000
-    hi VimwikiHeader2 guifg=#00FF00
-    hi VimwikiHeader3 guifg=#0000FF
-    hi VimwikiHeader4 guifg=#FF00FF
-    hi VimwikiHeader5 guifg=#00FFFF
-    hi VimwikiHeader6 guifg=#FFFF00
-
-
-" ------------------------------------------------------------------
-" Desc: vim-cpp-enhanced-highlight
-" ------------------------------------------------------------------
-    let g:cpp_class_scope_highlight = 1
-    let g:cpp_member_variable_highlight = 1
-    let g:cpp_class_decl_highlight = 1
-    let g:cpp_posix_standard = 1
-    let g:cpp_experimental_simple_template_highlight = 1
-    let g:cpp_concepts_highlight = 1
-
-
-" ------------------------------------------------------------------
-" Desc: nerdcommenter
-" ------------------------------------------------------------------
-    "1、 \cc 注释当前行和选中行
-    "2、 \cn 没有发现和\cc有区别
-    "3、 \c<空格> 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作
-    "4、 \cm 对被选区域用一对注释符进行注释，前面的注释对每一行都会添加注释
-    "5、 \ci 执行反转注释操作，选中区域注释部分取消注释，非注释部分添加注释
-    "6、 \cs 添加性感的注释，代码开头介绍部分通常使用该注释
-    "7、 \cy 添加注释，并复制被添加注释的部分
-    "8、 \c$ 注释当前光标到改行结尾的内容
-    "9、 \cA 跳转到该行结尾添加注释，并进入编辑模式
-    "10、\ca 转换注释的方式，比如： /**/和//
-    "11、\cl \cb 左对齐和左右对其，左右对其主要针对/**/
-    "12、\cu 取消注释
-    " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 0
-    " Use compact syntax for prettified multi-line comments
-    let g:NERDCompactSexyComs = 0
-    " Align line-wise comment delimiters flush left instead of following code indentation
-    let g:NERDDefaultAlign = 'left'
-    " Set a language to use its alternate delimiters by default
-    let g:NERDAltDelims_java = 1
-    " Add your own custom formats or override the defaults
-    let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
-    " Allow commenting and inverting empty lines (useful when commenting a region)
-    let g:NERDCommentEmptyLines = 1
-    " Enable trimming of trailing whitespace when uncommenting
-    let g:NERDTrimTrailingWhitespace = 1
-    " Enable NERDCommenterToggle to check all selected lines is commented or not
-    let g:NERDToggleCheckAllLines = 1
-
-" ------------------------------------------------------------------
-" Desc: bookmark
-" ------------------------------------------------------------------
-    let g:bookmark_sign = '🐎'
-    let g:bookmark_no_default_key_mappings = 1
 
 
 " ------------------------------------------------------------------
@@ -269,40 +206,98 @@ call plug#end()
     " let g:airline_symbols.dirty='⚡'
 
 
+"##############################################################################
+"# 代码可读性增强
+"##############################################################################
+
 " ------------------------------------------------------------------
-" Desc: echodoc
+" Desc: ctags设置
 " ------------------------------------------------------------------
-    set noshowmode
-    " lnoshowmodeet g:echodoc_enable_at_startup = 1
-    "
-	" let g:echodoc#enable_at_startup = 1
-	" let g:echodoc#type = 'popup'
-	" " To use a custom highlight for the popup window,
-	" " change Pmenu to your highlight group
-	" highlight link EchoDocPopup Pmenu
+    "更新tags
+    "map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .<cr><cr>
+    "更新tag着色文件
+    "map tup :UpdateTypesFile<cr>
 
 
 " ------------------------------------------------------------------
-" Desc: LeaderF
+" Desc: tagbar设置
 " ------------------------------------------------------------------
-    let g:Lf_PreviewInPopup = 1
-    "指定 popup window / floating window 的位置
-    let g:Lf_PreviewHorizontalPosition = 'center'
-    "指定 popup window / floating window 的宽度。
-    let g:Lf_PreviewPopupWidth = 0
-    "not use separators,
-    let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+    "map tl :TagbarToggle<CR>
+    "map tk :TagbarOpenAutoClose<CR>
+    " let g:tagbar_autofocus = 1
+    let g:tagbar_sort = 0
 
-    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-    let g:Lf_WorkingDirectoryMode = 'Ac'
-    let g:Lf_WindowHeight = 0.30
-    let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
-    let g:Lf_ShortcutF = '<leader>f'
-    " noremap <c-n> :LeaderfFunction!<cr>
-    " noremap <c-m> :LeaderfRgRecall<cr>
-    "全局搜索 -E GBK 指定编码保证汉字搜索
-    noremap <c-f> :<C-U><C-R>=printf("Leaderf rg --stayOpen -S -w -E GBK -e %s ", expand("<cword>"))<CR>
+" ------------------------------------------------------------------
+" Desc: vim-preview
+" ------------------------------------------------------------------
+    noremap gs :PreviewSignature!<cr>
+
+
+" ------------------------------------------------------------------
+" Desc: vim-quickhl设置
+" ------------------------------------------------------------------
+    nmap <Space>n <Plug>(quickhl-manual-this)
+    xmap <Space>n <Plug>(quickhl-manual-this)
+    nmap <Space>N <Plug>(quickhl-manual-reset)
+    xmap <Space>N <Plug>(quickhl-manual-reset)
+
+
+"##############################################################################
+"# 文本编辑增强
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: vim-xkbswitch 输入法自动切换插件
+" ------------------------------------------------------------------
+    "插件需要的支持文件后续要放在统一路径下管理
+    let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
+
+
+" ------------------------------------------------------------------
+" Desc: nerdcommenter
+" ------------------------------------------------------------------
+    "1、 \cc 注释当前行和选中行
+    "2、 \cn 没有发现和\cc有区别
+    "3、 \c<空格> 如果被选区域有部分被注释，则对被选区域执行取消注释操作，其它情况执行反转注释操作
+    "4、 \cm 对被选区域用一对注释符进行注释，前面的注释对每一行都会添加注释
+    "5、 \ci 执行反转注释操作，选中区域注释部分取消注释，非注释部分添加注释
+    "6、 \cs 添加性感的注释，代码开头介绍部分通常使用该注释
+    "7、 \cy 添加注释，并复制被添加注释的部分
+    "8、 \c$ 注释当前光标到改行结尾的内容
+    "9、 \cA 跳转到该行结尾添加注释，并进入编辑模式
+    "10、\ca 转换注释的方式，比如： /**/和//
+    "11、\cl \cb 左对齐和左右对其，左右对其主要针对/**/
+    "12、\cu 取消注释
+    " Add spaces after comment delimiters by default
+    let g:NERDSpaceDelims = 0
+    " Use compact syntax for prettified multi-line comments
+    let g:NERDCompactSexyComs = 0
+    " Align line-wise comment delimiters flush left instead of following code indentation
+    let g:NERDDefaultAlign = 'left'
+    " Set a language to use its alternate delimiters by default
+    let g:NERDAltDelims_java = 1
+    " Add your own custom formats or override the defaults
+    let g:NERDCustomDelimiters = { 'c': { 'left': '//','right': '' } }
+    " Allow commenting and inverting empty lines (useful when commenting a region)
+    let g:NERDCommentEmptyLines = 1
+    " Enable trimming of trailing whitespace when uncommenting
+    let g:NERDTrimTrailingWhitespace = 1
+    " Enable NERDCommenterToggle to check all selected lines is commented or not
+    let g:NERDToggleCheckAllLines = 1
+
+
+" ------------------------------------------------------------------
+" Desc: vim-textobj-argument
+" ------------------------------------------------------------------
+    "基本操作
+    " c/d/v/y + ia                 改写/删除/选取/复制 函数参数
+    " c/d/v/y + aa                 改写/删除/选取/复制 函数参数（包括逗号分隔）
+
+
+"##############################################################################
+"# 移动，跳转增强
+"##############################################################################
 
 " ------------------------------------------------------------------
 " Desc: easymotion
@@ -327,96 +322,40 @@ call plug#end()
 	map ge  <Plug>(smartword-ge)
 
 
-" ------------------------------------------------------------------
-" Desc: vim-textobj-argument
-" ------------------------------------------------------------------
-"基本操作
-" c/d/v/y + ia                 改写/删除/选取/复制 函数参数
-" c/d/v/y + aa                 改写/删除/选取/复制 函数参数（包括逗号分隔）
-
+"##############################################################################
+"# 版本控制
+"##############################################################################
 
 " ------------------------------------------------------------------
-" Desc: vim-preview
+" Desc: gitgutter
 " ------------------------------------------------------------------
-    noremap gs :PreviewSignature!<cr>
-
-
-" ------------------------------------------------------------------
-" Desc: nerdtree
-" ------------------------------------------------------------------
-    map <F3> :NERDTreeToggle<CR>
-
-
-" ------------------------------------------------------------------
-" Desc: ctags设置
-" ------------------------------------------------------------------
-    "更新tags
-    "map tt :!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .<cr><cr>
-    "更新tag着色文件
-    "map tup :UpdateTypesFile<cr>
+    let g:gitgutter_map_keys = 0
+    set updatetime=300
+    " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
+    let g:gitgutter_sign_added = '++'
+    let g:gitgutter_sign_modified = '~~'
+    let g:gitgutter_sign_removed = '--'
+    let g:gitgutter_sign_removed_first_line = '^^'
+    let g:gitgutter_sign_modified_removed = 'ww'
+    "use floating window preview 
+    let g:gitgutter_preview_win_floating = 1
+    "gitgutter signcolumn color
+    " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
+    " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
+    " highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
 
 
 " ------------------------------------------------------------------
-" Desc: tagbar设置
+" Desc: fugitive
 " ------------------------------------------------------------------
-    "map tl :TagbarToggle<CR>
-    "map tk :TagbarOpenAutoClose<CR>
-    " let g:tagbar_autofocus = 1
-    let g:tagbar_sort = 0
+    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
+    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
+    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
 
 
-" ------------------------------------------------------------------
-" Desc: choosewin设置
-" ------------------------------------------------------------------
-    " nmap wi <Plug>(choosewin)
-    " use overlay feature
-    let g:choosewin_overlay_enable = 1
-
-    " workaround for the overlay font being broken on mutibyte buffer.
-    let g:choosewin_overlay_clear_multibyte = 1
-
-    " tmux-like overlay color
-    let g:choosewin_color_overlay = {
-                \ 'gui': ['DodgerBlue3', 'DodgerBlue3'],
-                \ 'cterm': [25, 25]
-                \ }
-    let g:choosewin_color_overlay_current = {
-                \ 'gui': ['firebrick1', 'firebrick1'],
-                \ 'cterm': [124, 124]
-                \ }
-
-    let g:choosewin_blink_on_land      = 0 " don't blink at land
-    let g:choosewin_statusline_replace = 0 " don't replace statusline
-    let g:choosewin_tabline_replace    = 0 " don't replace tabline
-
-
-" ------------------------------------------------------------------
-" Desc: vim-quickhl设置
-" ------------------------------------------------------------------
-    nmap <Space>n <Plug>(quickhl-manual-this)
-    xmap <Space>n <Plug>(quickhl-manual-this)
-    nmap <Space>N <Plug>(quickhl-manual-reset)
-    xmap <Space>N <Plug>(quickhl-manual-reset)
-
-
-" ------------------------------------------------------------------
-" Desc: vim-markdown设置
-" ------------------------------------------------------------------
-    let g:vim_markdown_math = 1
-
-
-" ------------------------------------------------------------------
-" Desc: vim-markdown-toc设置 
-" ------------------------------------------------------------------
-
-
-" ------------------------------------------------------------------
-" Desc: markdown-preview.nvim设置
-" ------------------------------------------------------------------
-    let g:mkdp_path_to_chrome = "chrome"
-    "普通模式
-    nmap <silent> <F8> <Plug>MarkdownPreview
-
+"##############################################################################
+"# 补全
+"##############################################################################
 
 " ------------------------------------------------------------------
 " Desc: coc.nvim设置
@@ -486,6 +425,79 @@ call plug#end()
     " endfunction
     "
     " let g:coc_snippet_next = '<tab>'
+
+
+"##############################################################################
+"# 搜索
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: LeaderF
+" ------------------------------------------------------------------
+    let g:Lf_PreviewInPopup = 1
+    "指定 popup window / floating window 的位置
+    let g:Lf_PreviewHorizontalPosition = 'center'
+    "指定 popup window / floating window 的宽度。
+    let g:Lf_PreviewPopupWidth = 0
+    "not use separators,
+    let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+
+    let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+    let g:Lf_WorkingDirectoryMode = 'Ac'
+    let g:Lf_WindowHeight = 0.30
+    let g:Lf_CacheDirectory = expand('~/.vim/cache')
+
+    let g:Lf_ShortcutF = '<leader>f'
+    " noremap <c-n> :LeaderfFunction!<cr>
+    " noremap <c-m> :LeaderfRgRecall<cr>
+    "全局搜索 -E GBK 指定编码保证汉字搜索
+    noremap <c-f> :<C-U><C-R>=printf("Leaderf rg --stayOpen -S -w -E GBK -e %s ", expand("<cword>"))<CR>
+
+
+"##############################################################################
+"# 书签增强
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: bookmark
+" ------------------------------------------------------------------
+    let g:bookmark_sign = '🐎'
+    let g:bookmark_no_default_key_mappings = 1
+
+
+"##############################################################################
+"# 文件树
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: nerdtree
+" ------------------------------------------------------------------
+    map <F3> :NERDTreeToggle<CR>
+
+
+"##############################################################################
+"# 帮助文档速查表
+"##############################################################################
+
+" ------------------------------------------------------------------
+" Desc: vimwiki
+" ------------------------------------------------------------------
+    hi VimwikiHeader1 guifg=#FF0000
+    hi VimwikiHeader2 guifg=#00FF00
+    hi VimwikiHeader3 guifg=#0000FF
+    hi VimwikiHeader4 guifg=#FF00FF
+    hi VimwikiHeader5 guifg=#00FFFF
+    hi VimwikiHeader6 guifg=#FFFF00
+
+
+"##############################################################################
+"# 编译，自动任务
+"##############################################################################
+
+
+"##############################################################################
+"# 快捷键映射管理
+"##############################################################################
 
 " ------------------------------------------------------------------
 " Desc: vim-which-key设置
@@ -629,6 +641,7 @@ call plug#end()
     vnoremap <silent> <Space> :<c-u>WhichKeyVisual '<Space>'<CR>
 
 
+
 " ------------------------------------------------------------------
 " Desc: my function
 " ------------------------------------------------------------------
@@ -675,6 +688,8 @@ endfunction
  set expandtab
 
  set nu
+
+ set noshowmode
 
  " In Visual Block Mode, cursor can be positioned where there is no actual character
  set ve=block
