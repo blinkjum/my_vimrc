@@ -97,6 +97,9 @@ Plug 'scrooloose/nerdtree',{'on':['NERDTreeToggle','NERDTreeFind']}
 Plug 'vimwiki/vimwiki'
 Plug 'yianwillis/vimcdoc'
 Plug 'blinkjum/mycheatsheet'
+"任务管理
+Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asynctasks.vim'
 
 "快捷键映射管理
 Plug 'liuchengxu/vim-which-key'
@@ -494,6 +497,27 @@ call plug#end()
 "# 编译，自动任务
 "##############################################################################
 
+" ------------------------------------------------------------------
+" Desc: asynrun 
+" ------------------------------------------------------------------
+  " 默认打开高度为8的quickfix窗口显示信息
+  let g:asyncrun_open = 8
+  "编码GBK
+  let g:asyncrun_encs = 'gbk'
+
+
+" ------------------------------------------------------------------
+" Desc: asynctask 
+" ------------------------------------------------------------------
+  "F6 运行项目编译结果
+  noremap <silent><f6> :AsyncTask project-run<cr>
+  "F7 编译项目
+  noremap <silent><f7> :AsyncTask project-build<cr>
+  "F5 单文件运行
+  noremap <silent><f5> :AsyncTask file-run<cr>
+  "F9 单文件编译
+  noremap <silent><f9> :AsyncTask file-build<cr>
+
 
 "##############################################################################
 "# 快捷键映射管理
@@ -616,6 +640,17 @@ call plug#end()
                 \ 'u' : [':UpdateTypesFile'  , 'UpdateTypesFile'],
                 \ 'l' : [':TagbarToggle'  , 'TagbarToggle'],
                 \ 'k' : [':TagbarOpenAutoClose'  , 'TagbarOpenAutoClose'],
+                \ }
+    let g:which_key_map.q = {
+                \ 'name' : '+quickfix' ,
+                \ 'o' : [':copen'  , 'open quickfix window'],
+                \ 'j' : [':cnext'  , 'next error'],
+                \ 'k' : [':cprev'  , 'prev error '],
+                \ 'l' : [':AsyncTaskList'  , 'show asynctask list '],
+                \ 'e' : [':AsyncTaskEdit'  , 'show asynctask edit '],
+                \ 'p' : [':AsyncTask project-build'  , 'use asynctask build project '],
+                \ 'f' : [':AsyncTask file-build'  , 'use asynctask build file '],
+                \ 'm' : [':AsyncTaskMacro'  , 'show asynctask macro '],
                 \ }
 
     nnoremap <silent> <Space>ry  "0p

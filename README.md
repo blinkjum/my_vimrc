@@ -87,3 +87,8 @@
 
 ##### 输入法切换
 [vim-xkbswitch](https://github.com/lyokha/vim-xkbswitch)
+
+##### 任务管理
+[asyncrun](https://github.com/skywind3000/asyncrun.vim)
+
+[asynctasks](https://github.com/skywind3000/asynctasks.vim)
