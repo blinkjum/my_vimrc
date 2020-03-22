@@ -55,51 +55,50 @@ set fileencodings=ucs-bom,utf-8,chinese
 
 call plug#begin('~/.vim/plugged')
 "界面增强
-Plug 't9md/vim-choosewin'
+Plug 't9md/vim-choosewin',{ 'on': [] }
 Plug 'blinkjum/papercolor-theme'
-Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline',{ 'on': [] }
 "代码可读性增强
-Plug 'majutsushi/tagbar',{ 'on': ['TagbarToggle','TagbarOpenAutoClose'] }
-Plug 'Yggdroot/indentLine'
+Plug 'majutsushi/tagbar',{ 'on': [] }
+Plug 'Yggdroot/indentLine',{ 'on': [] }
 Plug 'skywind3000/vim-preview',{ 'on': ['PreviewTag','PreviewSignature'] }
 Plug 'abudden/taghighlight-automirror'
 Plug 'sheerun/vim-polyglot'
-Plug 't9md/vim-quickhl'
-Plug 'itchyny/vim-cursorword' 
+Plug 't9md/vim-quickhl',{ 'on': [] }
+Plug 'itchyny/vim-cursorword'
 "文本编辑增强
-"Plug 'Krasjet/auto.pairs'
-Plug 'cohama/lexima.vim'
-Plug 'tpope/vim-surround'
-Plug 'mg979/vim-visual-multi'
-Plug 'lyokha/vim-xkbswitch'
-Plug 'scrooloose/nerdcommenter'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'gaving/vim-textobj-argument'
+Plug 'jiangmiao/auto-pairs',{ 'on': [] }
+Plug 'tpope/vim-surround',{ 'on': [] }
+Plug 'mg979/vim-visual-multi',{ 'on': [] }
+Plug 'lyokha/vim-xkbswitch',{ 'on': [] }
+Plug 'scrooloose/nerdcommenter',{ 'on': [] }
+Plug 'vim-scripts/DoxygenToolkit.vim',{ 'on': [] }
+Plug 'gaving/vim-textobj-argument',{ 'on': [] }
 "移动，跳转增强
-Plug 'easymotion/vim-easymotion'
-Plug 'kana/vim-smartword'
+Plug 'easymotion/vim-easymotion',{ 'on': [] }
+Plug 'kana/vim-smartword',{ 'on': [] }
 "版本控制
 Plug 'cohama/agit.vim',{ 'on': ['Agit','AgitFile'] }
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter',{ 'on': [] }
+Plug 'tpope/vim-fugitive',{ 'on': [] }
 "补全
 Plug 'neoclide/coc.nvim'
-Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets',{ 'on': [] }
 "搜索
-Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/LeaderF',{ 'on': [] }
 "书签增强
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks',{ 'on': [] }
+Plug 'kshenoy/vim-signature',{ 'on': [] }
 "文件树
-Plug 'vim-scripts/a.vim'
+Plug 'vim-scripts/a.vim',{ 'on': [] }
 Plug 'scrooloose/nerdtree',{'on':['NERDTreeToggle','NERDTreeFind']}
 "帮助文档速查表
-Plug 'vimwiki/vimwiki'
-Plug 'yianwillis/vimcdoc'
-Plug 'blinkjum/mycheatsheet'
+Plug 'vimwiki/vimwiki',{ 'on': [] }
+Plug 'yianwillis/vimcdoc',{ 'on': [] }
+Plug 'blinkjum/mycheatsheet',{ 'on': [] }
 "任务管理
-Plug 'skywind3000/asyncrun.vim'
-Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim',{ 'on': [] }
+Plug 'skywind3000/asynctasks.vim',{ 'on': [] }
 
 "快捷键映射管理
 Plug 'liuchengxu/vim-which-key'
@@ -111,6 +110,42 @@ Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
+" 使用vim定时器api对插件进行延迟加载
+" 200 毫秒后调用 LoadPlug，且只调用一次, 见 `:h timer_start()`
+call timer_start(200, 'LoadPlug')
+
+function! LoadPlug(timer) abort
+  " 手动加载 vim-easymotion
+  call plug#load('vim-airline')
+  "call plug#load('vim-polyglot')
+  call plug#load('vim-choosewin')
+  call plug#load('tagbar')
+  call plug#load('indentLine')
+  call plug#load('vim-quickhl')
+  "call plug#load('vim-cursorword')
+  call plug#load('auto-pairs')
+  call plug#load('vim-surround')
+  call plug#load('vim-visual-multi')
+  call plug#load('vim-xkbswitch')
+  call plug#load('nerdcommenter')
+  call plug#load('DoxygenToolkit.vim')
+  call plug#load('vim-textobj-argument')
+  call plug#load('vim-easymotion')
+  call plug#load('vim-smartword')
+  call plug#load('agit.vim')
+  call plug#load('vim-gitgutter')
+  call plug#load('vim-fugitive')
+  call plug#load('vim-snippets')
+  call plug#load('LeaderF')
+  call plug#load('vim-bookmarks')
+  call plug#load('vim-signature')
+  call plug#load('a.vim')
+  call plug#load('vimwiki')
+  call plug#load('vimcdoc')
+  call plug#load('mycheatsheet')
+  call plug#load('asyncrun.vim')
+  call plug#load('asynctasks.vim')
+endfunction
 
 
 "##############################################################################
@@ -254,6 +289,7 @@ call plug#end()
 " Desc: vim-xkbswitch 输入法自动切换插件
 " ------------------------------------------------------------------
     "插件需要的支持文件后续要放在统一路径下管理
+    let g:XkbSwitchEnabled = 1
     let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
 
 
@@ -594,7 +630,6 @@ call plug#end()
                 \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
                 \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
                 \ 'l' : [':Agit' , 'git log graph']   ,
-                \ 'z' : [':!lazygit' , 'lazygit']   ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
