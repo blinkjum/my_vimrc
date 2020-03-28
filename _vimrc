@@ -374,8 +374,8 @@ endfunction
     let g:gitgutter_sign_added = '|'
     let g:gitgutter_sign_modified = '|'
     let g:gitgutter_sign_removed = '|'
-    let g:gitgutter_sign_removed_first_line = '$'
-    let g:gitgutter_sign_modified_removed = '$'
+    let g:gitgutter_sign_removed_first_line = '|'
+    let g:gitgutter_sign_modified_removed = '|'
     "use floating window preview 
     let g:gitgutter_preview_win_floating = 1
     "gitgutter signcolumn color
@@ -490,7 +490,7 @@ endfunction
     " noremap <c-n> :LeaderfFunction!<cr>
     " noremap <c-m> :LeaderfRgRecall<cr>
     "全局搜索 -E GBK 指定编码保证汉字搜索
-    noremap <c-f> :<C-U><C-R>=printf("Leaderf rg --stayOpen -S -w -E GBK -e %s ", expand("<cword>"))<CR>
+    noremap <c-f> :<C-U><C-R>=printf("Leaderf! rg --match-path --stayOpen -S -w -E GBK -e %s ", expand("<cword>"))<CR>
 
 
 "##############################################################################
@@ -574,28 +574,28 @@ endfunction
     " You can pass a descriptive text to an existing mapping.
     let g:which_key_map.c = {
                 \ 'name' : '+commenter',
-                \ 'c' : ['<plug>NERDCommenterComment', '注释当前行和选中行'],
-                \ 'i' : ['<plug>NERDCommenterInvert', '反转注释'],
-                \ 'n' : ['<plug>NERDCommenterToggle', '智能注释'],
-                \ 'A' : ['<plug>NERDCommenterAppend', '跳转到该行结尾添加注释，并进入编辑模式'],
-                \ 'd' : [':Dox', 'Doxygen注释'],
+                \ 'c' : ['<plug>NERDCommenterComment', 'Comment the current and selected lines']                            ,
+                \ 'i' : ['<plug>NERDCommenterInvert', 'Reverse comments']                                                   ,
+                \ 'n' : ['<plug>NERDCommenterToggle', 'Smart annotation']                                                   ,
+                \ 'A' : ['<plug>NERDCommenterAppend', 'Jump to the end of the line to add a comment and enter edit mode']   ,
+                \ 'd' : [':Dox', 'DoxygenComment'],
                 \ }
 
     let g:which_key_map.w = {
                 \ 'name' : '+windows' ,
-                \ 'd' : ['<C-W>c'      , '删除窗口']              ,
-                \ 'h' : ['<C-W>30<'    , '窗口宽度微调']          ,
-                \ 'j' : [':resize +8'  , '窗口高度微调']          ,
-                \ 'k' : [':resize -8'  , '窗口高度微调']          ,
-                \ 'l' : ['<C-W>30>'    , '窗口宽度微调']          ,
-                \ 'H' : ['<C-W>H'      , '把当前窗口移动到最左']  ,
-                \ 'J' : ['<C-W>J'      , '把当前窗口移动到最下']  ,
-                \ 'L' : ['<C-W>L'      , '把当前窗口移动到最右']  ,
-                \ 'K' : ['<C-W>k'      , '把当前窗口移动到最上']  ,
-                \ '=' : ['<C-W>='      , '自动调整分屏']          ,
-                \ 's' : ['<C-W>s'      , '水平分屏']              ,
-                \ 'v' : ['<C-W>v'      , '竖直分屏']              ,
-                \ 'c' : ['<Plug>(choosewin)', '选择窗口']         ,
+                \ 'd' : ['<C-W>c'      , 'close window']                             ,
+                \ 'h' : ['<C-W>30<'    , 'Window width left adjust']                 ,
+                \ 'j' : [':resize +8'  , 'Window height upwards adjust']             ,
+                \ 'k' : [':resize -8'  , 'Window height downward adjust']            ,
+                \ 'l' : ['<C-W>30>'    , 'Window width right adjust']                ,
+                \ 'H' : ['<C-W>H'      , 'Move the current window to the left']      ,
+                \ 'J' : ['<C-W>J'      , 'Move the current window to the bottom']    ,
+                \ 'L' : ['<C-W>L'      , 'Move the current window to the right']     ,
+                \ 'K' : ['<C-W>k'      , 'Move the current window to the top']       ,
+                \ '=' : ['<C-W>='      , 'Automatically adjust window width']        ,
+                \ 's' : ['<C-W>s'      , 'Horizontal split screen']                  ,
+                \ 'v' : ['<C-W>v'      , 'Vertical split screen']                    ,
+                \ 'c' : ['<Plug>(choosewin)', 'Selection window']                    ,
                 \ }
 
     " =======================================================
@@ -605,87 +605,87 @@ endfunction
     " Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.) and descriptions for existing mappings
     let g:which_key_map.b = {
                 \ 'name' : '+buffer' ,
-                \ 'd' : ['bd'        , 'delete-buffer']   ,
-                \ 'f' : ['bfirst'    , 'first-buffer']    ,
-                \ 'l' : ['blast'     , 'last-buffer']     ,
-                \ 'n' : ['bnext'     , 'next-buffer']     ,
-                \ 'p' : ['bprevious' , 'previous-buffer'] ,
+                \ 'd' : ['bd'        , 'delete-buffer']      ,
+                \ 'f' : ['bfirst'    , 'first-buffer']       ,
+                \ 'l' : ['blast'     , 'last-buffer']        ,
+                \ 'n' : ['bnext'     , 'next-buffer']        ,
+                \ 'p' : ['bprevious' , 'previous-buffer']    ,
                 \ }
 
     let g:which_key_map.e = {
-                \ 'name' : '+edit' ,
-                \ 'l' : ['`.'        , 'last edited position']   ,
+                \ 'name' : '+edit',
+                \ 'l' : ['`.'        , 'last edited position']    ,
                 \ }
     let g:which_key_map.g = {
                 \ 'name' : '+git' ,
-                \ 'g' : [':G'                              , 'GitStatus']  ,
-                \ 'd' : [':Gdiffsplit'                     , 'Diffsplit']  ,
-                \ 'b' : [':Gblame'                         , 'GitBlame']  ,
-                \ 'j' : ['<Plug>(GitGutterNextHunk)'       , 'NextHunk']  ,
-                \ 'k' : ['<Plug>(GitGutterPrevHunk)'       , 'PrevHunk']  ,
-                \ 'h' : [':GitGutterLineHighlightsToggle'  , 'ToggleHighlightHug']  ,
-                \ 'p' : ['<Plug>(GitGutterPreviewHunk)'    , 'PreviewHunk']         ,
-                \ 's' : ['<Plug>(GitGutterStageHunk)'      , 'StageHunk']           ,
-                \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']            ,
-                \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']         ,
-                \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']         ,
-                \ 'l' : [':Agit' , 'git log graph']   ,
+                \ 'g' : [':G'                              , 'GitStatus']             ,
+                \ 'd' : [':Gdiffsplit'                     , 'Diffsplit']             ,
+                \ 'b' : [':Gblame'                         , 'GitBlame']              ,
+                \ 'j' : ['<Plug>(GitGutterNextHunk)'       , 'NextHunk']              ,
+                \ 'k' : ['<Plug>(GitGutterPrevHunk)'       , 'PrevHunk']              ,
+                \ 'h' : [':GitGutterLineHighlightsToggle'  , 'ToggleHighlightHug']    ,
+                \ 'p' : ['<Plug>(GitGutterPreviewHunk)'    , 'PreviewHunk']           ,
+                \ 's' : ['<Plug>(GitGutterStageHunk)'      , 'StageHunk']             ,
+                \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']              ,
+                \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']           ,
+                \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']    ,
+                \ 'l' : [':Agit' , 'git log graph']                                   ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
-                \ 'm' : ['<Plug>BookmarkToggle', 'BookmarkToggle'],
-                \ 'i' : ['<plug>BookmarkAnnotate', 'NERDCommenterInvert'],
-                \ 'a' : ['<plug>BookmarkShowAll', 'BookmarkShowAll'],
-                \ 'j' : ['<plug>BookmarkNext', 'BookmarkNext'],
-                \ 'k' : ['<plug>BookmarkPrev', 'BookmarkPrev'],
-                \ 'c' : ['<plug>BookmarkClear', 'BookmarkClear'],
-                \ 'x' : ['<plug>BookmarkClearAll', 'BookmarkClearAll'],
-                \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine'],
-                \ 's' : [':marks', 'show all marks'],
-                \ 'r' : [':QuickhlManualReset', 'Reset highlight'],
-                \ 't' : [':QuickhlManualLockWindowToggle', 'Toggle highlight window lock '],
+                \ 'm' : ['<Plug>BookmarkToggle', 'BookmarkToggle']                             ,
+                \ 'i' : ['<plug>BookmarkAnnotate', 'NERDCommenterInvert']                      ,
+                \ 'a' : ['<plug>BookmarkShowAll', 'BookmarkShowAll']                           ,
+                \ 'j' : ['<plug>BookmarkNext', 'BookmarkNext']                                 ,
+                \ 'k' : ['<plug>BookmarkPrev', 'BookmarkPrev']                                 ,
+                \ 'c' : ['<plug>BookmarkClear', 'BookmarkClear']                               ,
+                \ 'x' : ['<plug>BookmarkClearAll', 'BookmarkClearAll']                         ,
+                \ 'g' : ['<plug>BookmarkMoveToLine', 'BookmarkMoveToLine']                     ,
+                \ 's' : [':marks', 'show all marks']                                           ,
+                \ 'r' : [':QuickhlManualReset', 'Reset highlight']                             ,
+                \ 't' : [':QuickhlManualLockWindowToggle', 'Toggle highlight window lock ']    ,
                 \ }
     let g:which_key_map.f = {
                 \ 'name' : '+file' ,
-                \ 'o' : ['NERDTreeFind'  , 'open-file-tree']   ,
-                \ 'a' : [':A'            , 'switch to .H']   ,
-                \ 's' : [':AS'           , 'splits and switch']   ,
-                \ 'v' : [':AV'           , 'vertiacl splits and switch']   ,
-                \ 'w' : [':set wrap'     , 'auto wrap']   ,
-                \ 'r' : [':set relativenumber'     , 'use relativenumber']   ,
+                \ 'o' : ['NERDTreeFind'  , 'open-file-tree']                  ,
+                \ 'a' : [':A'            , 'switch to .H']                    ,
+                \ 's' : [':AS'           , 'splits and switch']               ,
+                \ 'v' : [':AV'           , 'vertiacl splits and switch']      ,
+                \ 'w' : [':set wrap'     , 'auto wrap']                       ,
+                \ 'r' : [':set relativenumber'     , 'use relativenumber']    ,
                 \ }
     let g:which_key_map.l = {
                 \ 'name' : '+LeaderF' ,
-                \ 'f' : ['LeaderfFunction'  , 'search functions in current buffer']   ,
-                \ 'b' : ['LeaderfBuffer'  , 'search buffers']   ,
-                \ 't' : ['LeaderfTag'  , 'navigate tags']   ,
-                \ 'l' : ['LeaderfLineAll'  , 'search a line in all listed buffers']   ,
-                \ 'm' : ['LeaderfMruCwd'  , 'search Mru in current working directory']   ,
+                \ 'f' : ['LeaderfFunction'  , 'search functions in current buffer']       ,
+                \ 'b' : ['LeaderfBuffer'  , 'search buffers']                             ,
+                \ 't' : ['LeaderfTag'  , 'navigate tags']                                 ,
+                \ 'l' : ['LeaderfLineAll'  , 'search a line in all listed buffers']       ,
+                \ 'm' : ['LeaderfMruCwd'  , 'search Mru in current working directory']    ,
                 \ }
     let g:which_key_map.h = {
                 \ 'name' : '+help' ,
-                \ 'l' : [':h local-additions'  , 'local plugin doc']   ,
-                \ 'h' : [':h'  , 'vim help indix']   ,
-                \ 'o' : [':h options'  , 'vim options ']   ,
-                \ 'i' : [':h my_index'  , 'cheatsheet index ']   ,
+                \ 'l' : [':h local-additions'  , 'local plugin doc']    ,
+                \ 'h' : [':h'  , 'vim help indix']                      ,
+                \ 'o' : [':h options'  , 'vim options ']                ,
+                \ 'i' : [':h my_index'  , 'cheatsheet index ']          ,
                 \ }
     let g:which_key_map.t = {
                 \ 'name' : '+tag' ,
-                \ 't' : [':!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .'  , 'Generate tag file'],
-                \ 'u' : [':UpdateTypesFile'  , 'UpdateTypesFile'],
-                \ 'l' : [':TagbarToggle'  , 'TagbarToggle'],
-                \ 'k' : [':TagbarOpenAutoClose'  , 'TagbarOpenAutoClose'],
+                \ 't' : [':!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .'  , 'Generate tag file']    ,
+                \ 'u' : [':UpdateTypesFile'  , 'UpdateTypesFile']                                            ,
+                \ 'l' : [':TagbarToggle'  , 'TagbarToggle']                                                  ,
+                \ 'k' : [':TagbarOpenAutoClose'  , 'TagbarOpenAutoClose']                                    ,
                 \ }
     let g:which_key_map.q = {
                 \ 'name' : '+quickfix' ,
-                \ 'o' : [':copen'  , 'open quickfix window'],
-                \ 'j' : [':cnext'  , 'next error'],
-                \ 'k' : [':cprev'  , 'prev error '],
-                \ 'l' : [':AsyncTaskList'  , 'show asynctask list '],
-                \ 'e' : [':AsyncTaskEdit'  , 'show asynctask edit '],
-                \ 'p' : [':AsyncTask project-build'  , 'use asynctask build project '],
-                \ 'f' : [':AsyncTask file-build'  , 'use asynctask build file '],
-                \ 'm' : [':AsyncTaskMacro'  , 'show asynctask macro '],
+                \ 'o' : [':copen'  , 'open quickfix window']                              ,
+                \ 'j' : [':cnext'  , 'next error']                                        ,
+                \ 'k' : [':cprev'  , 'prev error ']                                       ,
+                \ 'l' : [':AsyncTaskList'  , 'show asynctask list ']                      ,
+                \ 'e' : [':AsyncTaskEdit'  , 'show asynctask edit ']                      ,
+                \ 'p' : [':AsyncTask project-build'  , 'use asynctask build project ']    ,
+                \ 'f' : [':AsyncTask file-build'  , 'use asynctask build file ']          ,
+                \ 'm' : [':AsyncTaskMacro'  , 'show asynctask macro ']                    ,
                 \ }
 
     nnoremap <silent> <Space>ry  "0p
@@ -700,11 +700,11 @@ endfunction
 
     let g:which_key_map.r = {
                 \ 'name' : '+reg',
-                \ 'r' : [':CocList -A --normal yank','show yank list '],
-                \ 'y' : '复制专用寄存器',
-                \ '%' : '当前文件名',
-                \ '/' : '上次/查找的关键字',
-                \ 'a' : '查看所有寄存器',
+                \ 'r' : [':CocList -A --normal yank','show yank list ']    ,
+                \ 'y' : 'yank registers'                                   ,
+                \ '%' : 'Current file name'                                ,
+                \ '/' : 'Last / Finded keywords'                           ,
+                \ 'a' : 'View all registers'                               ,
                 \ }
 
     call which_key#register('<Space>', "g:which_key_map")
