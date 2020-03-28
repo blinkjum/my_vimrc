@@ -57,7 +57,7 @@ call plug#begin('~/.vim/plugged')
 "界面增强
 Plug 't9md/vim-choosewin',{ 'on': [] }
 Plug 'blinkjum/papercolor-theme'
-Plug 'vim-airline/vim-airline',{ 'on': [] }
+Plug 'vim-airline/vim-airline'
 "代码可读性增强
 Plug 'majutsushi/tagbar',{ 'on': [] }
 Plug 'Yggdroot/indentLine',{ 'on': [] }
@@ -116,7 +116,7 @@ call timer_start(200, 'LoadPlug')
 
 function! LoadPlug(timer) abort
   " 手动加载 vim-easymotion
-  call plug#load('vim-airline')
+  "call plug#load('vim-airline')
   "call plug#load('vim-polyglot')
   call plug#load('vim-choosewin')
   call plug#load('tagbar')
@@ -369,19 +369,19 @@ endfunction
 " Desc: gitgutter
 " ------------------------------------------------------------------
     let g:gitgutter_map_keys = 0
-    set updatetime=300
+    set updatetime=200
     " let g:gitgutter_git_executable = 'C:\Program Files\Git\bin\git.exe'
-    let g:gitgutter_sign_added = '++'
-    let g:gitgutter_sign_modified = '~~'
-    let g:gitgutter_sign_removed = '--'
-    let g:gitgutter_sign_removed_first_line = '^^'
-    let g:gitgutter_sign_modified_removed = 'ww'
+    let g:gitgutter_sign_added = '|'
+    let g:gitgutter_sign_modified = '|'
+    let g:gitgutter_sign_removed = '|'
+    let g:gitgutter_sign_removed_first_line = '$'
+    let g:gitgutter_sign_modified_removed = '$'
     "use floating window preview 
     let g:gitgutter_preview_win_floating = 1
     "gitgutter signcolumn color
-    " highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
-    " highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
-    " highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
+     highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
+     highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
+     highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
 
 
 " ------------------------------------------------------------------
@@ -700,6 +700,7 @@ endfunction
 
     let g:which_key_map.r = {
                 \ 'name' : '+reg',
+                \ 'r' : [':CocList -A --normal yank','show yank list '],
                 \ 'y' : '复制专用寄存器',
                 \ '%' : '当前文件名',
                 \ '/' : '上次/查找的关键字',
