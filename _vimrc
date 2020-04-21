@@ -74,6 +74,7 @@ Plug 'lyokha/vim-xkbswitch',{ 'on': [] }
 Plug 'scrooloose/nerdcommenter',{ 'on': [] }
 Plug 'vim-scripts/DoxygenToolkit.vim',{ 'on': [] }
 Plug 'gaving/vim-textobj-argument',{ 'on': [] }
+Plug 'bootleq/vim-cycle',{ 'on': [] }
 "移动，跳转增强
 Plug 'easymotion/vim-easymotion',{ 'on': [] }
 Plug 'kana/vim-smartword',{ 'on': [] }
@@ -82,7 +83,7 @@ Plug 'cohama/agit.vim',{ 'on': ['Agit','AgitFile'] }
 Plug 'airblade/vim-gitgutter',{ 'on': [] }
 Plug 'tpope/vim-fugitive',{ 'on': [] }
 "补全
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets',{ 'on': [] }
 "搜索
 Plug 'Yggdroot/LeaderF',{ 'on': [] }
@@ -130,6 +131,7 @@ function! LoadPlug(timer) abort
   call plug#load('nerdcommenter')
   call plug#load('DoxygenToolkit.vim')
   call plug#load('vim-textobj-argument')
+  call plug#load('vim-cycle')
   call plug#load('vim-easymotion')
   call plug#load('vim-smartword')
   call plug#load('agit.vim')
@@ -332,6 +334,63 @@ endfunction
     "基本操作
     " c/d/v/y + ia                 改写/删除/选取/复制 函数参数
     " c/d/v/y + aa                 改写/删除/选取/复制 函数参数（包括逗号分隔）
+
+
+" ------------------------------------------------------------------
+" Desc: vim-cycle 
+" ------------------------------------------------------------------
+    noremap <silent> <Plug>CycleFallbackNext <C-A>
+    noremap <silent> <Plug>CycleFallbackPrev <C-X>
+    nmap <silent> <c-a> <Plug>CycleNext
+    vmap <silent> <c-a> <Plug>CycleNext
+    nmap <silent> <c-x> <Plug>CyclePrev
+    vmap <silent> <c-x> <Plug>CyclePrev
+    "----------------------------------------------------------------------
+    " https://github.com/bootleq/vim-cycle
+    "----------------------------------------------------------------------
+    let g:cycle_default_groups = [
+                \   [['true', 'false']],
+                \   [['yes', 'no']],
+                \   [['on', 'off']],
+                \   [['+', '-']],
+                \   [['>', '<']],
+                \   [['"', "'"]],
+                \   [['==', '!=']],
+                \   [['and', 'or']],
+                \   [["in", "out"]],
+                \   [["up", "down"]],
+                \   [["min", "max"]],
+                \   [["get", "set"]],
+                \   [["add", "remove"]],
+                \   [["to", "from"]],
+                \   [["read", "write"]],
+                \   [["only", "except"]],
+                \   [['without', 'with']],
+                \   [["exclude", "include"]],
+                \   [["asc", "desc"]],
+                \   [["begin", "end"]],
+                \   [["first", "last"]],
+                \   [["slow", "fast"]],
+                \   [["small", "large"]],
+                \   [["push", "pull"]],
+                \   [["before", "after"]],
+                \   [["new", "delete"]],
+                \   [["while", "until"]],
+                \   [["up", "down"]],
+                \   [["left", "right"]],
+                \   [["top", "bottom"]],
+                \   [["one", "two", "three", "four", "five", "six", "seven",
+                \     "eight", "nine", "ten"]],
+                \   [['是', '否']],
+                \   [['void', 'int', 'char']],
+                \   [['{:}', '[:]', '(:)'], 'sub_pairs'],
+                \   [['（:）', '「:」', '『:』'], 'sub_pairs'],
+                \   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+                \     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
+                \   [['January', 'February', 'March', 'April', 'May', 'June', 
+                \     'July', 'August', 'September', 'October', 'November', 
+                \     'December'], 'hard_case', {'name': 'Months'}],
+                \ ]
 
 
 "##############################################################################
