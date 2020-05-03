@@ -75,6 +75,7 @@ Plug 'scrooloose/nerdcommenter',{ 'on': [] }
 Plug 'vim-scripts/DoxygenToolkit.vim',{ 'on': [] }
 Plug 'gaving/vim-textobj-argument',{ 'on': [] }
 Plug 'bootleq/vim-cycle',{ 'on': [] }
+Plug 'simnalamburt/vim-mundo'
 "移动，跳转增强
 Plug 'easymotion/vim-easymotion',{ 'on': [] }
 Plug 'kana/vim-smartword',{ 'on': [] }
@@ -391,6 +392,12 @@ endfunction
                 \     'July', 'August', 'September', 'October', 'November', 
                 \     'December'], 'hard_case', {'name': 'Months'}],
                 \ ]
+
+
+" ------------------------------------------------------------------
+" Desc: vim-mundo 
+" ------------------------------------------------------------------
+    let g:mundo_right = 1
 
 
 "##############################################################################
@@ -712,6 +719,8 @@ endfunction
                 \ 'v' : [':AV'           , 'vertiacl splits and switch']      ,
                 \ 'w' : [':set wrap'     , 'auto wrap']                       ,
                 \ 'r' : [':set relativenumber'     , 'use relativenumber']    ,
+                \ 'h' : [':%!xxd'         , 'Browse files in hex mode']       ,
+                \ 'u' : [':MundoToggle'   , 'mundotree']                      ,
                 \ }
     let g:which_key_map.l = {
                 \ 'name' : '+LeaderF' ,
