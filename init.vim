@@ -48,6 +48,20 @@ set termencoding=utf-8
 set fileencoding=chinese
 set fileencodings=ucs-bom,utf-8,chinese
 
+ "neovim-qt关闭丑陋的tabline和popupmenu
+ set winaltkeys=no
+ if has('nvim')
+     try
+         call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
+         call rpcnotify(1, 'Gui', 'Option', 'Popupmenu', 0)
+     catch
+     endtry
+ endif
+
+ "显示文件绝对路径
+ if has('nvim')
+     set title
+ endif
 
 " --------------- <plugged> ------------------------------------------------
 "使用 --startuptime 选项来查看vim启动时间 例如:vim --startuptime vim.log
@@ -82,7 +96,7 @@ Plug 'kana/vim-smartword',{ 'on': [] }
 Plug 'cohama/agit.vim',{ 'on': ['Agit','AgitFile'] }
 Plug 'airblade/vim-gitgutter',{ 'on': [] }
 Plug 'tpope/vim-fugitive',{ 'on': [] }
-"Plug 'rhysd/git-messenger.vim'
+Plug 'rhysd/git-messenger.vim'
 "补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets',{ 'on': [] }
@@ -187,7 +201,7 @@ endfunction
     syntax enable
     set background=dark
     colorscheme PaperColor
-    set guifont=Ubuntu_Mono_Bold:h14
+    set guifont=Ubuntu\ Mono:h14
     " set guifont=Cascadia\ Mono\ PL:h12:w7
     " set guifont=Fira_Code:h12:w7
     " set guifont=InputMonoCompressed_Medium:h13:w7
@@ -699,6 +713,7 @@ endfunction
                 \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']           ,
                 \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']    ,
                 \ 'l' : [':Agit'                           , 'git log graph']         ,
+                \ 'm' : [':GitMessenger'                   , 'git commit message']    ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
