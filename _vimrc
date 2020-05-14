@@ -1,5 +1,4 @@
 " Vim with all enhancements
-source $VIMRUNTIME/vimrc_example.vim
 
 set nocompatible " Use Vim settings, rather then Vi settings (much better!). This must be first, because it changes other options as a side effect.
 set tags+=./tags,./../tags,./**/tags,tags " which tags files CTRL-] will find
@@ -63,7 +62,7 @@ Plug 'majutsushi/tagbar',{ 'on': [] }
 Plug 'Yggdroot/indentLine',{ 'on': [] }
 Plug 'skywind3000/vim-preview',{ 'on': ['PreviewTag','PreviewSignature'] }
 Plug 'abudden/taghighlight-automirror'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 Plug 't9md/vim-quickhl',{ 'on': [] }
 Plug 'itchyny/vim-cursorword'
 "文本编辑增强
@@ -83,6 +82,7 @@ Plug 'kana/vim-smartword',{ 'on': [] }
 Plug 'cohama/agit.vim',{ 'on': ['Agit','AgitFile'] }
 Plug 'airblade/vim-gitgutter',{ 'on': [] }
 Plug 'tpope/vim-fugitive',{ 'on': [] }
+"Plug 'rhysd/git-messenger.vim'
 "补全
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets',{ 'on': [] }
@@ -267,6 +267,9 @@ endfunction
     "map tk :TagbarOpenAutoClose<CR>
     " let g:tagbar_autofocus = 1
     let g:tagbar_sort = 0
+    let g:tagbar_width = 25
+    let g:tagbar_zoomwidth = 0
+    let g:tagbar_indent = 0
 
 
 " ------------------------------------------------------------------
@@ -695,7 +698,7 @@ endfunction
                 \ 'u' : ['<Plug>(GitGutterUndoHunk)'       , 'UndoHunk']              ,
                 \ 'w' : [':GitGutterSignsToggle'           , 'SignsToggle']           ,
                 \ 'f' : [':GitGutterFold'                  , 'FoldUnchangedLines']    ,
-                \ 'l' : [':Agit' , 'git log graph']                                   ,
+                \ 'l' : [':Agit'                           , 'git log graph']         ,
                 \ }
     let g:which_key_map.m = {
                 \ 'name' : '+mark',
