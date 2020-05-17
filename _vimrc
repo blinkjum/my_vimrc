@@ -1,10 +1,12 @@
 " Vim with all enhancements
 
 set nocompatible " Use Vim settings, rather then Vi settings (much better!). This must be first, because it changes other options as a side effect.
+set backspace=indent,eol,start
 set tags+=./tags,./../tags,./**/tags,tags " which tags files CTRL-] will find
 set hid " allow to change buffer without saving
 set showfulltag " show tag with function protype.
 
+source $VIMRUNTIME/vimrc_example.vim
 " Use the internal diff if available.
 " Otherwise use the special 'diffexpr' for Windows.
 if &diffopt !~# 'internal'
@@ -414,8 +416,8 @@ endfunction
     map E <Plug>(easymotion-e)
     map B <Plug>(easymotion-b)
     map F <Plug>(easymotion-s)
-    map <silent> <Space>j  <Plug>(easymotion-j)
-    map <silent> <Space>k  <Plug>(easymotion-k)
+    "map <silent> <Space>j  <Plug>(easymotion-j)
+    "map <silent> <Space>k  <Plug>(easymotion-k)
     " keep cursor column when JK motion
     let g:EasyMotion_startofline = 0
 
@@ -906,8 +908,8 @@ endfunction
  nmap wm :vertical res 150<cr>
 
  "快速翻页
- noremap J <C-F>
- noremap K <C-B>
+ noremap K <c-u>
+ noremap J <c-d> 
 
 
  " 智能 Home
