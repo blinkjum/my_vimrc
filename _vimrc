@@ -448,7 +448,7 @@ endfunction
     let g:gitgutter_sign_removed_first_line = '|'
     let g:gitgutter_sign_modified_removed = '|'
     "use floating window preview 
-    let g:gitgutter_preview_win_floating = 1
+    let g:gitgutter_preview_win_floating = 0
     "gitgutter signcolumn color
      highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
      highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
@@ -554,7 +554,7 @@ endfunction
 
     let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
     let g:Lf_WorkingDirectoryMode = 'Ac'
-    let g:Lf_WindowHeight = 0.30
+    let g:Lf_WindowHeight = 0.20
     let g:Lf_CacheDirectory = expand('~/.vim/cache')
 
     let g:Lf_ShortcutF = '<leader>f'
@@ -582,6 +582,7 @@ endfunction
 " ------------------------------------------------------------------
 " Desc: nerdtree
 " ------------------------------------------------------------------
+    let NERDTreeWinSize=25
     map <F3> :NERDTreeToggle<CR>
 
 
@@ -732,7 +733,8 @@ endfunction
                 \ 'f' : ['LeaderfFunction'  , 'search functions in current buffer']       ,
                 \ 'b' : ['LeaderfBuffer'  , 'search buffers']                             ,
                 \ 't' : ['LeaderfTag'  , 'navigate tags']                                 ,
-                \ 'l' : ['LeaderfLineAll'  , 'search a line in all listed buffers']       ,
+                \ 'l' : ['LeaderfLine'  , 'search a line in current buffer.']             ,
+                \ 'a' : ['LeaderfLineAll'  , 'search a line in all listed buffers']       ,
                 \ 'm' : ['LeaderfMruCwd'  , 'search Mru in current working directory']    ,
                 \ }
     let g:which_key_map.h = {
