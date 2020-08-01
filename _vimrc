@@ -459,8 +459,8 @@ endfunction
 " Desc: fugitive
 " ------------------------------------------------------------------
     hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
-    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=1 ctermbg=0
-    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=1 ctermbg=0
+    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=3 ctermbg=0
+    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=2 ctermbg=0
 
 
 "##############################################################################
