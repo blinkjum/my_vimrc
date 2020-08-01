@@ -57,13 +57,14 @@ set fileencodings=ucs-bom,utf-8,chinese
 call plug#begin('~/.vim/plugged')
 "界面增强
 Plug 't9md/vim-choosewin',{ 'on': [] }
-Plug 'blinkjum/papercolor-theme'
+"Plug 'blinkjum/papercolor-theme'
+Plug 'sickill/vim-monokai'
 Plug 'vim-airline/vim-airline'
 "代码可读性增强
 Plug 'majutsushi/tagbar',{ 'on': [] }
 Plug 'Yggdroot/indentLine',{ 'on': [] }
 Plug 'skywind3000/vim-preview',{ 'on': ['PreviewTag','PreviewSignature'] }
-Plug 'abudden/taghighlight-automirror'
+"Plug 'abudden/taghighlight-automirror'
 "Plug 'sheerun/vim-polyglot'
 Plug 't9md/vim-quickhl',{ 'on': [] }
 Plug 'itchyny/vim-cursorword'
@@ -71,7 +72,7 @@ Plug 'itchyny/vim-cursorword'
 Plug 'jiangmiao/auto-pairs',{ 'on': [] }
 Plug 'tpope/vim-surround',{ 'on': [] }
 Plug 'mg979/vim-visual-multi',{ 'on': [] }
-Plug 'lyokha/vim-xkbswitch',{ 'on': [] }
+"Plug 'lyokha/vim-xkbswitch',{ 'on': [] }
 Plug 'scrooloose/nerdcommenter',{ 'on': [] }
 Plug 'vim-scripts/DoxygenToolkit.vim',{ 'on': [] }
 Plug 'gaving/vim-textobj-argument',{ 'on': [] }
@@ -86,7 +87,7 @@ Plug 'airblade/vim-gitgutter',{ 'on': [] }
 Plug 'tpope/vim-fugitive',{ 'on': [] }
 "Plug 'rhysd/git-messenger.vim'
 "补全
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets',{ 'on': [] }
 "搜索
 Plug 'Yggdroot/LeaderF',{ 'on': [] }
@@ -130,7 +131,7 @@ function! LoadPlug(timer) abort
   call plug#load('auto-pairs')
   call plug#load('vim-surround')
   call plug#load('vim-visual-multi')
-  call plug#load('vim-xkbswitch')
+  "call plug#load('vim-xkbswitch')
   call plug#load('nerdcommenter')
   call plug#load('DoxygenToolkit.vim')
   call plug#load('vim-textobj-argument')
@@ -188,8 +189,8 @@ endfunction
     " syntax on
     syntax enable
     set background=dark
-    colorscheme PaperColor
-    set guifont=Ubuntu_Mono_Bold:h14
+    colorscheme monokai
+    set guifont=Ubuntu_Mono_Bold:h15
     " set guifont=Cascadia\ Mono\ PL:h12:w7
     " set guifont=Fira_Code:h12:w7
     " set guifont=InputMonoCompressed_Medium:h13:w7
@@ -297,8 +298,8 @@ endfunction
 " Desc: vim-xkbswitch 输入法自动切换插件
 " ------------------------------------------------------------------
     "插件需要的支持文件后续要放在统一路径下管理
-    let g:XkbSwitchEnabled = 1
-    let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
+    "let g:XkbSwitchEnabled = 1
+    "let g:XkbSwitchLib = 'c:\Vim\support\libxkbswitch64.dll'
 
 
 " ------------------------------------------------------------------
@@ -450,17 +451,17 @@ endfunction
     "use floating window preview 
     let g:gitgutter_preview_win_floating = 0
     "gitgutter signcolumn color
-     highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
-     highlight GitGutterChange guifg=#bbbb00 guibg=#1f1f1f ctermfg=3 ctermbg=0
-     highlight GitGutterDelete guifg=#ff2222 guibg=#1f1f1f ctermfg=1 ctermbg=0
+     highlight GitGutterAdd    guifg=#009900 guibg=#3a3a3a ctermfg=2 ctermbg=237
+     highlight GitGutterChange guifg=#bbbb00 guibg=#3a3a3a ctermfg=3 ctermbg=237
+     highlight GitGutterDelete guifg=#ff2222 guibg=#3a3a3a ctermfg=1 ctermbg=237
 
 
 " ------------------------------------------------------------------
 " Desc: fugitive
 " ------------------------------------------------------------------
-    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=0
-    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=3 ctermbg=0
-    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=2 ctermbg=0
+    hi diffRemoved     guifg=#ff2222 guibg=#1c1c1c ctermfg=1 ctermbg=235
+    hi diffAdded       guifg=#009900 guibg=#1c1c1c ctermfg=2 ctermbg=235
+    hi diffSubname     guifg=#ffff00 guibg=#1c1c1c ctermfg=3 ctermbg=235
 
 
 "##############################################################################
@@ -470,46 +471,53 @@ endfunction
 " ------------------------------------------------------------------
 " Desc: coc.nvim设置
 " ------------------------------------------------------------------
-    " don't give |ins-completion-menu| messages.
+    " TextEdit might fail if hidden is not set.
+    
+    set hidden
+    " Give more space for displaying messages.
+    "set cmdheight=2
+    " Don't pass messages to |ins-completion-menu|.
     set shortmess+=c
-
     " Use tab for trigger completion with characters ahead and navigate.
-    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config.
+    "inoremap <silent><expr> <TAB>
+    "            \ pumvisible() ? "\<C-n>" :
+    "            \ <SID>check_back_space() ? "\<TAB>" :
+    "            \ coc#refresh()
+    "inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    "
+    "function! s:check_back_space() abort
+    "    let col = col('.') - 1
+    "    return !col || getline('.')[col - 1]  =~# '\s'
+    "endfunction
 
     " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
-
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Or use `complete_info` if your vim support it, like:
-    " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
+    "inoremap <silent><expr> <c-space> coc#refresh()
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+    " position. Coc only does snippet and additional edit on confirm.
+    " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+    if exists('*complete_info')
+        inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+        inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
     " Use `[g` and `]g` to navigate diagnostics
-    " nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    " nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    " GoTo code navigation.
+    nmap <silent> gr <Plug>(coc-references)
 
-    " Remap keys for gotos
-    " nmap <silent> gd <Plug>(coc-definition)
-    " nmap <silent> gy <Plug>(coc-type-definition)
-    " nmap <silent> gi <Plug>(coc-implementation)
-    " nmap <silent> gr <Plug>(coc-references)
+    " Use K to show documentation in preview window.
+    nnoremap <silent> <Space>k :call <SID>show_documentation()<CR>
 
-    " " Highlight symbol under cursor on CursorHold
-    " autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    " Add status line support, for integration with other plugin, checkout `:h coc-status`
-    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
 
     " -----------------------snippet-----------------------------------------
     " Use <C-l> for trigger snippet expand.
@@ -523,18 +531,28 @@ endfunction
     " Use <C-j> for both expand and jump (make expand higher priority.)
     imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-    " inoremap <silent><expr> <TAB>
-    "             \ pumvisible() ? coc#_select_confirm() :
-    "             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    "             \ <SID>check_back_space() ? "\<TAB>" :
-    "             \ coc#refresh()
-    "
-    " function! s:check_back_space() abort
-    "     let col = col('.') - 1
-    "     return !col || getline('.')[col - 1]  =~# '\s'
-    " endfunction
-    "
-    " let g:coc_snippet_next = '<tab>'
+    inoremap <silent><expr> <TAB>
+                 \ pumvisible() ? coc#_select_confirm() :
+                 \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+                 \ <SID>check_back_space() ? "\<TAB>" :
+                 \ coc#refresh()
+
+     function! s:check_back_space() abort
+         let col = col('.') - 1
+         return !col || getline('.')[col - 1]  =~# '\s'
+     endfunction
+
+     let g:coc_snippet_next = '<tab>'
+
+
+" ------------------------------------------------------------------
+" Desc: vim-snippets 
+" ------------------------------------------------------------------
+    "let g:UltiSnipsExpandTrigger="<tab>"
+    "let g:UltiSnipsJumpForwardTrigger="<tab>"
+    "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " If you want :UltiSnipsEdit to split your window.
+    "let g:UltiSnipsEditSplit="vertical"
 
 
 "##############################################################################
@@ -747,7 +765,6 @@ endfunction
     let g:which_key_map.t = {
                 \ 'name' : '+tag' ,
                 \ 't' : [':!ctags -R --c++-kinds=+p --fields=+ianS --extras=+q .'  , 'Generate tag file']    ,
-                \ 'u' : [':UpdateTypesFile'  , 'UpdateTypesFile']                                            ,
                 \ 'l' : [':TagbarToggle'  , 'TagbarToggle']                                                  ,
                 \ 'k' : [':TagbarOpenAutoClose'  , 'TagbarOpenAutoClose']                                    ,
                 \ }
