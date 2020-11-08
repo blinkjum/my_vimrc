@@ -60,6 +60,7 @@ Plug 't9md/vim-choosewin',{ 'on': [] }
 Plug 'blinkjum/papercolor-theme'
 Plug 'vim-airline/vim-airline'
 "代码可读性增强
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'majutsushi/tagbar',{ 'on': [] }
 Plug 'Yggdroot/indentLine',{ 'on': [] }
 Plug 'skywind3000/vim-preview',{ 'on': ['PreviewTag','PreviewSignature'] }
@@ -470,46 +471,54 @@ endfunction
 " ------------------------------------------------------------------
 " Desc: coc.nvim设置
 " ------------------------------------------------------------------
-    " don't give |ins-completion-menu| messages.
+    " TextEdit might fail if hidden is not set.
+    
+    set hidden
+    " Give more space for displaying messages.
+    "set cmdheight=2
+    " Don't pass messages to |ins-completion-menu|.
     set shortmess+=c
 
     " Use tab for trigger completion with characters ahead and navigate.
-    " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-    inoremap <silent><expr> <TAB>
-                \ pumvisible() ? "\<C-n>" :
-                \ <SID>check_back_space() ? "\<TAB>" :
-                \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config.
+    "inoremap <silent><expr> <TAB>
+    "            \ pumvisible() ? "\<C-n>" :
+    "            \ <SID>check_back_space() ? "\<TAB>" :
+    "            \ coc#refresh()
+    "inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    "
+    "function! s:check_back_space() abort
+    "    let col = col('.') - 1
+    "    return !col || getline('.')[col - 1]  =~# '\s'
+    "endfunction
 
     " Use <c-space> to trigger completion.
-    inoremap <silent><expr> <c-space> coc#refresh()
-
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Or use `complete_info` if your vim support it, like:
-    " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
+    "inoremap <silent><expr> <c-space> coc#refresh()
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+    " position. Coc only does snippet and additional edit on confirm.
+    " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+    if exists('*complete_info')
+        inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+        inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
     " Use `[g` and `]g` to navigate diagnostics
-    " nmap <silent> [g <Plug>(coc-diagnostic-prev)
-    " nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+    " GoTo code navigation.
+    nmap <silent> gr <Plug>(coc-references)
 
-    " Remap keys for gotos
-    " nmap <silent> gd <Plug>(coc-definition)
-    " nmap <silent> gy <Plug>(coc-type-definition)
-    " nmap <silent> gi <Plug>(coc-implementation)
-    " nmap <silent> gr <Plug>(coc-references)
+    " Use K to show documentation in preview window.
+    nnoremap <silent> <Space>k :call <SID>show_documentation()<CR>
 
-    " " Highlight symbol under cursor on CursorHold
-    " autocmd CursorHold * silent call CocActionAsync('highlight')
-
-    " Add status line support, for integration with other plugin, checkout `:h coc-status`
-    " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+    function! s:show_documentation()
+        if (index(['vim','help'], &filetype) >= 0)
+            execute 'h '.expand('<cword>')
+        else
+            call CocAction('doHover')
+        endif
+    endfunction
 
     " -----------------------snippet-----------------------------------------
     " Use <C-l> for trigger snippet expand.
@@ -523,18 +532,28 @@ endfunction
     " Use <C-j> for both expand and jump (make expand higher priority.)
     imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-    " inoremap <silent><expr> <TAB>
-    "             \ pumvisible() ? coc#_select_confirm() :
-    "             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-    "             \ <SID>check_back_space() ? "\<TAB>" :
-    "             \ coc#refresh()
-    "
-    " function! s:check_back_space() abort
-    "     let col = col('.') - 1
-    "     return !col || getline('.')[col - 1]  =~# '\s'
-    " endfunction
-    "
-    " let g:coc_snippet_next = '<tab>'
+    inoremap <silent><expr> <TAB>
+                 \ pumvisible() ? coc#_select_confirm() :
+                 \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+                 \ <SID>check_back_space() ? "\<TAB>" :
+                 \ coc#refresh()
+
+     function! s:check_back_space() abort
+         let col = col('.') - 1
+         return !col || getline('.')[col - 1]  =~# '\s'
+     endfunction
+
+     let g:coc_snippet_next = '<tab>'
+
+
+" ------------------------------------------------------------------
+" Desc: vim-snippets 
+" ------------------------------------------------------------------
+    "let g:UltiSnipsExpandTrigger="<tab>"
+    "let g:UltiSnipsJumpForwardTrigger="<tab>"
+    "let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+    " If you want :UltiSnipsEdit to split your window.
+    "let g:UltiSnipsEditSplit="vertical"
 
 
 "##############################################################################
@@ -974,3 +993,6 @@ endfunction
 
  "快速退出插入模式
  imap jk <c-[>
+
+ "启动时自动全屏
+ au GUIEnter * simalt ~x
