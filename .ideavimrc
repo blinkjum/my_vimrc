@@ -1,0 +1,228 @@
+" no backup
+set noundofile
+set nobackup
+set noswapfile
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" disable window search style
+" nnoremap <C-f> /
+" inoremap <C-f> <ESC>/
+" vnoremap <C-f> <ESC>/<C-r><C-w>
+" " command mode
+" cnoremap <C-f> <C-r><C-w>
+
+
+" ==================================================
+" Show all the provided actions via `:actionlist`
+" ==================================================
+
+
+" back
+nnoremap <C-i> :action Back<CR>
+
+" forward
+"nnoremap <leader>fw :action Forward<CR>
+
+nnoremap <Leader><space> a<space><ESC>:action CodeCompletion<CR>
+inoremap <Leader><space> <space><ESC>:action CodeCompletion<CR>
+
+
+" <C-S-N>
+nnoremap <C-S-n> :action GotoFile<CR>
+inoremap <C-S-n> <ESC>:action GotoFile<CR>
+
+"显示参数
+nnoremap <C-P> :action ParameterInfo<CR>
+inoremap <C-P> <ESC>:action ParameterInfo<CR>a
+" <C-Q>
+nnoremap <C-q> :action QuickJavaDoc<CR>
+
+" <C-H> Hierarchy Class
+nnoremap <C-H> :action TypeHierarchy<CR>
+
+" <C-S-H> Hierarchy Method
+nnoremap <C-S-H> :action MethodHierarchy<CR>
+nnoremap <leader>hm :action MethodHierarchy<CR>
+
+" <C-j>
+inoremap <C-j> <ESC>:action InsertLiveTemplate<CR>
+
+" <C-A-L>
+nnoremap <C-A-l> :action ReformatCode<CR>
+inoremap <C-A-l> <ESC>:action ReformatCode<CR>a
+
+
+
+"跳转到上一个函数
+nnoremap <space>] :action ChooseNextSubsequentPropertyValueEditorAction<CR>
+"跳转到下一个函数
+nnoremap <space>[ :action ChoosePrevSubsequentPropertyValueEditorAction<CR>
+
+
+"跳转到上一个改动
+nnoremap <space>gj :action VcsShowNextChangeMarker<CR>
+"跳转到下一个改动
+nnoremap <space>gk :action VcsShowPrevChangeMarker<CR>
+
+
+"Tab间跳转
+nnoremap <tab> :action NextTab<CR>
+nnoremap <S-tab> :action PreviousTab<CR>
+
+
+" Toggle  breakpoints
+nnoremap <Leader>br :action ToggleLineBreakpoint<CR>
+" see all breakpoints
+nnoremap <Leader>abr :action ViewBreakpoints<CR>
+
+
+
+"查看声明
+nnoremap <space>gd :action GotoDeclaration<CR>
+inoremap <space>gd <ESC>:action GotoDeclaration<CR>
+
+"查看使用
+nnoremap <space>gu :action ShowUsages<CR>
+"查看使用(包含文件信息)
+nnoremap <space>gf :action FindUsages<CR>
+"查看实例？
+nnoremap <Leader>gi :action GotoImplementation<CR>
+
+"tagbar
+nnoremap <space>tl :action FileStructurePopup<CR>
+
+"最近打开文件
+nnoremap <space>lm :action RecentFiles<CR>
+
+" copy
+vnoremap <C-c> :action $Copy<CR>
+" paste
+nnoremap <C-v> :action $Paste<CR>
+inoremap <C-v> <C-o>:action $Paste<CR>
+vnoremap <C-v> "_d:action $Paste<CR>
+" cut
+vnoremap <C-x> "+d
+nnoremap <C-x> :action $Cut<CR>
+
+
+
+"检查是否有多余的imports
+nnoremap <space>oi :action OptimizeImports<CR>
+
+" <C-o>
+"nnoremap <C-o> :action OverrideMethods<CR>
+
+" built in search looks better
+map <C-f> <ESC>:action Find<CR>
+
+"格式化
+nnoremap <space>fm :action ReformatCode<CR>
+inoremap <space>fm <ESC>:action ReformatCode<CR>a
+
+
+" comment
+nnoremap <space>cc :action CommentByLineComment<CR>
+" pretend :) uncomment
+nnoremap <space>cu :action CommentByLineComment<CR>
+" comment
+vnoremap <space>cc :action CommentByLineComment<CR>
+" pretend :) uncomment
+vnoremap <space>cu :action CommentByLineComment<CR>
+
+"打开运行窗口
+nnoremap <Leader>cmd :action ChooseRunConfiguration<CR>
+
+"ADB IDEA
+nnoremap <space>dd :action AdbIdea<CR>
+
+
+"启用easymotion
+set easymotion
+
+
+"全屏
+"nnoremap <space>fs :action ToggleFullScreen<CR>
+"全局搜索
+nnoremap <leader>f :action SearchEverywhere<CR>
+"打开终端
+nnoremap <space>tt :action ActivateTerminalToolWindow<CR>
+" 关闭弹窗
+nnoremap <space>cw :action CloseActiveTab<CR>
+"Redo
+nnoremap <C-r> :action $Redo<CR>
+
+
+" ==================================================
+" Emulated Vim Plugins
+" ==================================================
+set surround
+
+" 屏幕滚动时在光标上下方保留5行预览代码
+set so=3
+
+ " smartcase模式进行搜索,如果输入中有大写则区分大小写,忽略ignorecase设置
+ set ignorecase
+ set smartcase
+
+
+ " my widnows
+ nmap wi <Plug>(choosewin)
+ nmap wj <C-W>j
+ nmap wl <C-W>l
+ nmap wk <C-W>k
+ nmap wh <C-W>h
+ nmap wv <C-W>v
+ nmap wb <C-W>vwl
+ nmap wc <C-W>c
+ nmap wp :sp<cr>
+ nmap ws :vertical res 50<cr>
+ nmap w2 :vertical res 20<cr>
+ nmap w3 :vertical res 30<cr>
+ nmap wn :vertical res 100<cr>
+ nmap wm :vertical res 150<cr>
+
+ "快速翻页
+ noremap K <c-u>
+ noremap J <c-d>
+
+ "jk快速退出插入模式
+ imap jk <esc>
+
+ "将t映射到%
+ map t %
+
+
+ "将gd映射到*
+ map gd *
+
+ "移动到本行最尾
+ map - $
+
+ "修改S为把当前词替换成之前复制的内容
+ map S viwp
+
+ "使用黑洞寄存器处理可视模式下的复制问题
+ vnoremap p "_dP
+
+ "系统复制粘贴
+ map <unique> <leader>y "*y
+ nnoremap <unique> <leader>p "*p
+ nnoremap <unique> <leader>P "*P
+ vnoremap <unique> <leader>p "_d"*P
+ vnoremap <unique> <leader>P "_d"*P
+
+
+ "插入模式下快捷移动 emacs映射
+ inoremap <C-b> <Left>
+ inoremap <C-f> <Right>
+ inoremap <C-n> <Down>
+ inoremap <C-p> <Up>
+ inoremap <A-b> <S-Left>
+ inoremap <A-f> <S-Right>
+ inoremap <C-a> <Home>
+ inoremap <C-e> <End>
