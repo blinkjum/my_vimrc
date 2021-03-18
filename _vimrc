@@ -344,7 +344,7 @@ endfunction
 
 
 " ------------------------------------------------------------------
-" Desc: vim-cycle 
+" Desc: vim-cycle
 " ------------------------------------------------------------------
     noremap <silent> <Plug>CycleFallbackNext <C-A>
     noremap <silent> <Plug>CycleFallbackPrev <C-X>
@@ -394,14 +394,14 @@ endfunction
                 \   [['（:）', '「:」', '『:』'], 'sub_pairs'],
                 \   [['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
                 \     'Friday', 'Saturday'], 'hard_case', {'name': 'Days'}],
-                \   [['January', 'February', 'March', 'April', 'May', 'June', 
-                \     'July', 'August', 'September', 'October', 'November', 
+                \   [['January', 'February', 'March', 'April', 'May', 'June',
+                \     'July', 'August', 'September', 'October', 'November',
                 \     'December'], 'hard_case', {'name': 'Months'}],
                 \ ]
 
 
 " ------------------------------------------------------------------
-" Desc: vim-mundo 
+" Desc: vim-mundo
 " ------------------------------------------------------------------
     let g:mundo_right = 1
 
@@ -448,7 +448,7 @@ endfunction
     let g:gitgutter_sign_removed = '|'
     let g:gitgutter_sign_removed_first_line = '|'
     let g:gitgutter_sign_modified_removed = '|'
-    "use floating window preview 
+    "use floating window preview
     let g:gitgutter_preview_win_floating = 0
     "gitgutter signcolumn color
      highlight GitGutterAdd    guifg=#009900 guibg=#1f1f1f ctermfg=2 ctermbg=0
@@ -472,7 +472,7 @@ endfunction
 " Desc: coc.nvim设置
 " ------------------------------------------------------------------
     " TextEdit might fail if hidden is not set.
-    
+
     set hidden
     " Give more space for displaying messages.
     "set cmdheight=2
@@ -547,7 +547,7 @@ endfunction
 
 
 " ------------------------------------------------------------------
-" Desc: vim-snippets 
+" Desc: vim-snippets
 " ------------------------------------------------------------------
     "let g:UltiSnipsExpandTrigger="<tab>"
     "let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -625,7 +625,7 @@ endfunction
 "##############################################################################
 
 " ------------------------------------------------------------------
-" Desc: asynrun 
+" Desc: asynrun
 " ------------------------------------------------------------------
   " 默认打开高度为8的quickfix窗口显示信息
   let g:asyncrun_open = 8
@@ -634,7 +634,7 @@ endfunction
 
 
 " ------------------------------------------------------------------
-" Desc: asynctask 
+" Desc: asynctask
 " ------------------------------------------------------------------
   "F6 运行项目编译结果
   noremap <silent><f6> :AsyncTask project-run<cr>
@@ -930,7 +930,7 @@ endfunction
 
  "快速翻页
  noremap K <c-u>
- noremap J <c-d> 
+ noremap J <c-d>
 
 
  " 智能 Home
@@ -996,3 +996,7 @@ endfunction
 
  "启动时自动全屏
  au GUIEnter * simalt ~x
+
+ "高亮高亮多余的空白字符Tab
+ highlight ExtraWhitespace ctermbg=red guibg=red
+ autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
