@@ -848,6 +848,9 @@ endfunction
 
  set noshowmode
 
+ "鼠标支持
+ set mouse=a
+
  " In Visual Block Mode, cursor can be positioned where there is no actual character
  set ve=block
 
@@ -921,8 +924,8 @@ endfunction
  nmap wm :vertical res 150<cr>
 
  "快速翻页
- noremap J <C-F>
- noremap K <C-B>
+ noremap K <c-u>
+ noremap J <c-d>
 
 
  " 智能 Home
@@ -980,8 +983,8 @@ endfunction
 " set rop=type:directx,renmode:4
 
 "高亮高亮多余的空白字符及 Tab
-" highlight RedundantSpaces ctermbg=red guibg=red
-" match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
 
  "快速退出插入模式
  imap jk <c-[>
