@@ -1,0 +1,208 @@
+{
+    "editor.fontLigatures": true,
+    "workbench.colorTheme": "Monokai",
+    "editor.cursorBlinking": "smooth",
+    "editor.minimap.enabled": false,
+    "editor.fontFamily": "Ubuntu Mono,Consolas, 'Courier New', monospace",
+    "editor.fontSize": 16,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "java.semanticHighlighting.enabled": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.leader": "\\",
+    "vim.statusBarColorControl": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#5f00af",
+        "statusBar.noFolderBackground": "#5f00af",
+        "statusBar.debuggingBackground": "#5f00af"
+    },
+    "vim.hlsearch": true,
+    "vim.commandLineModeKeyBindings": [
+
+    ],
+    "vim.easymotion": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "k"],
+            "after": ["<Esc>"]
+        },
+    ],
+
+
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["t"],
+            "after": ["%"]
+        },
+        {
+            "before": ["-"],
+            "after": ["$"]
+        },
+        {
+            "before": ["w","p"],
+            "commands": [":sp"]
+        },
+        {
+            "before": ["w", "v"],
+            "commands": [":vsp"]
+        },
+        {
+            "before": ["w", "c"],
+            "commands": [
+                ":q",
+            ]
+        },
+        {
+            "before": ["w", "h"],
+            "after": ["<c-w>","h"]
+        },
+        {
+            "before": ["w", "l"],
+            "after": ["<c-w>","l"]
+        },
+        {
+            "before": ["w", "j"],
+            "after": ["<c-w>","j"]
+        },
+        {
+            "before": ["w", "k"],
+            "after": ["<c-w>","k"]
+        },
+        {
+            "before": ["B"],
+            "after": ["leader","leader","b"]
+        },
+        {
+            "before": ["E"],
+            "after": ["leader","leader","e"]
+        },
+        {
+            "before": ["J"],
+            "after": ["<c-d>"]
+        },
+        {
+            "before": ["K"],
+            "after": ["<c-u>"]
+        },
+        {
+            "before": ["leader","y"],
+            "after": ["\"","*","y"]
+        },
+        {
+            "before": ["leader","p"],
+            "after": ["\"","*","p"]
+        },
+        {
+            "before": ["S"],
+            "after": ["v","i","w","\"","0","p"]
+        },
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+        {
+            "before": ["leader","f"],
+            "commands":["workbench.action.quickOpen"]
+        },
+        {
+            "before": ["<C-f>"],
+            "commands":["workbench.view.search"]
+        },
+        {
+            "before": ["space","c"],
+            "after": ["g","c"]
+        },
+        {
+            "before": ["space","g","k"],
+            "commands":["workbench.action.editor.previousChange"]
+        },
+        {
+            "before": ["space","g","j"],
+            "commands":["workbench.action.editor.nextChange"]
+        },
+        {
+            "before": ["w","m"],
+            "commands":["workbench.action.increaseViewSize",
+                "workbench.action.increaseViewSize",
+                "workbench.action.increaseViewSize",
+                "workbench.action.increaseViewSize",]
+        },
+        {
+            "before": ["w","n"],
+            "commands":["workbench.action.decreaseViewSize",
+                "workbench.action.decreaseViewSize",
+                "workbench.action.decreaseViewSize",
+                "workbench.action.decreaseViewSize",]
+        },
+        {
+            "before": ["space","w","r"],
+            "commands":["workbench.action.evenEditorWidths"]
+        },
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["leader","y"],
+            "after": ["\"","*","y"]
+        },
+        {
+            "before": ["p"],
+            "after": ["\"","_","d","P"]
+        },
+        {
+            "before": ["space","c"],
+            "after": ["g","c"]
+        },
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+    ],
+    "vim.operatorPendingModeKeyBindings": [
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        }
+    ],
+    "vim.cursorStylePerMode.replace": "block",
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block",
+    "vim.cursorStylePerMode.visual": "block-outline",
+    "vim.cursorStylePerMode.visualblock": "block-outline",
+
+    "remote.SSH.showLoginTerminal": true,
+    "java.requirements.JDK11Warning": false,
+    "vim.commandLineModeKeyBindingsNonRecursive": [
+    ],
+    "window.menuBarVisibility": "compact",
+    "breadcrumbs.enabled": true,
+    "workbench.statusBar.visible": true,
+    "C_Cpp.updateChannel": "Insiders",
+    "remote.SSH.remotePlatform": {
+        "192.168.200.106": "linux",
+        "192.168.200.152": "linux",
+        "iozone.iicp.net": "linux",
+        "192.168.140.129": "linux"
+    },
+    "timeline.excludeSources": [],
+    "git.alwaysShowStagedChangesResourceGroup": true,
+    "gitlens.hovers.currentLine.over": "line",
+    "editor.renderControlCharacters": false,
+    "terminal.integrated.tabs.enabled": true,
+    "vim.autoSwitchInputMethod.switchIMCmd": "C:\\vim\\support\\im-select.exe",
+    "vim.autoSwitchInputMethod.obtainIMCmd": "C:\\vim\\support\\im-select.exe",
+    "vim.autoSwitchInputMethod.enable": true,
+    "files.autoGuessEncoding": true,
+
+}

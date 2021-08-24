@@ -1,2 +1,3 @@
-vim82/
-vimfiles/
+workspaceStorage/*
+globalStorage/*
+sync/*
